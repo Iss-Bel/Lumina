@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Lumina</title>
+</head>
+<body>
+
+    <!-- Título ajustado para refletir o conteúdo real da página -->
+    <h1>Perfil de Estilo & Preferências</h1>
+    <p>Preencha os campos abaixo para personalizar suas recomendações de moda</p>
+
+    <form action="/enviar" method="POST">
+        <!-- Nome Completo -->
+        <label for="nome">Nome completo:</label><br>
+        <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+        <br><br>
+
+        <!-- E-mail -->
+        <label for="email">E-mail:</label><br>
+        <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
+        <br><br>
+
+        <!-- Descrição de Estilo -->
+        <label for="descricao">Descreva seu estilo pessoal:</label><br>
+        <textarea id="descricao" name="descricao" rows="4" placeholder="Ex: Gosto de roupas confortáveis, tons neutros e peças vintage..."></textarea>
+        <br><br>
+
+        <!-- Gênero do Vestuário -->
+        <p>Gênero do Vestuário de Interesse:</p>
+        <input type="radio" id="feminino" name="genero_vestuario" value="feminino" checked>
+        <label for="feminino">Feminino</label>
+
+        <input type="radio" id="masculino" name="genero_vestuario" value="masculino">
+        <label for="masculino">Masculino</label>
+
+        <input type="radio" id="unissex" name="genero_vestuario" value="unissex">
+        <label for="unissex">Agênero / Unissex</label>
+        <br><br>
+
+        <!-- Tamanhos (Melhoria acrescentada) -->
+        <label for="tamanho_roupa">Tamanho de Roupa Habitual:</label><br>
+        <select id="tamanho_roupa" name="tamanho_roupa">
+            <option value="" disabled selected>Selecione seu tamanho...</option>
+            <option value="pp">PP</option>
+            <option value="p">P</option>
+            <option value="m">M</option>
+            <option value="g">G</option>
+            <option value="gg">GG</option>
+            <option value="xg">XG / Plus Size</option>
+        </select>
+        <br><br>
+
+        <!-- Categoria de Interesse -->
+        <label for="categoria">Categoria de Interesse Principal:</label><br>
+        <select id="categoria" name="categoria" required>
+            <option value="" disabled selected>Selecione uma opção...</option>
+            <option value="streetwear">Streetwear & Urbano</option>
+            <option value="formal">Moda Formal & Trabalho</option>
+            <option value="esportivo">Esportivo & Athleisure</option>
+            <option value="festas">Trajes de Gala & Festas</option>
+            <option value="Outra opção">Outra opção</option>
+        </select>
+        <br><br>
+
+        <!-- Notificações e Preferências -->
+        <p>Deseja receber notificações sobre:</p>
+        <input type="checkbox" id="novidades" name="notificacoes[]" value="lancamentos" checked>
+        <label for="novidades">Receber novos lançamentos</label>
+
+        <input type="checkbox" id="promocoes" name="notificacoes[]" value="cupons">
+        <label for="promocoes">Receber cupons de desconto</label>
+        <br><br>
+
+
+        <!-- Botão de Envio -->
+        <button type="submit">Salvar Perfil</button>
+    </form>
+</body>
+</html>
