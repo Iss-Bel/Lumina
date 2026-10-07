@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro - Lumina</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  </head>
+
+  <body class="pagina-cadastro">
+    <main class="container container--restrito">
+      
+      <!-- CABEÇALHO DA PÁGINA -->
+      <header class="pagina-cadastro__cabecalho">
+        <h1 class="pagina-cadastro__titulo">Cadastro Lumina</h1>
+        <p class="pagina-cadastro__subtitulo">
+          Antes de iniciar suas compras conosco faça o seu cadastro.
+        </p>
+      </header>
+
+      <!-- ALERTA DE ERRO -->
+      {% if erro %}
+      <div class="alerta alerta--erro" role="alert">
+        <strong class="alerta__destaque">Erro:</strong> {{ erro }}
+      </div>
+      {% endif %}
+
+      <!-- ALERTA DE SUCESSO -->
+      {% if sucesso %}
+      <div class="alerta alerta--sucesso" role="alert">
+        <strong class="alerta__destaque">Sucesso:</strong> {{ sucesso }}
+      </div>
+      {% endif %}
+
+      <!-- FORMULÁRIO -->
+      <form class="formulario" action="{{ url_for('salvar') }}" method="POST">
+        
+        <!-- NOME COMPLETO -->
+        <div class="formulario__grupo">
+          <label class="formulario__label" for="nome">Nome completo:</label>
+          <input
+            class="formulario__input"
+            type="text"
+            id="nome"
+            name="nome"
+            placeholder="Digite seu nome completo"
+            minlength="3"
+            maxlength="100"
+            pattern="[A-Za-zÀ-üãõÃÕçÇ\s]+"
+            title="Digite apenas letras e espaços."
+            autocomplete="name"
+            value="{{ valores.get('nome', '') if valores else '' }}"
+            required
+          />
+        </div>
+
+        <!-- EMAIL -->
+        <div class="formulario__grupo">
+          <label class="formulario__label" for="email">E-mail:</label>
+          <input
+            class="formulario__input"
+            type="email"
+            id="email"
+            name="email"
+            placeholder="seuemail@exemplo.com"
+            maxlength="120"
+            autocomplete="email"
+            value="{{ valores.get('email', '') if valores else '' }}"
+            required
+          />
+        </div>
+
+        <!-- TELEFONE -->
+        <div class="formulario__grupo">
+          <label class="formulario__label" for="telefone">Telefone:</label>
+          <input
+            class="formulario__input"
+            type="tel"
+            id="telefone"
+            name="telefone"
+            placeholder="(11) 94002-8922"
+            maxlength="20"
+            autocomplete="tel"
+            value="{{ valores.get('telefone', '') if valores else '' }}"
+            required
+          />
+        </div>
+
+        <!-- SENHA -->
+        <div class="formulario__grupo">
+          <label class="formulario__label" for="senha">Senha:</label>
+          <input
+            class="formulario__input"
+            type="password"
+            id="senha"
+            name="senha"
+            placeholder="Digite sua senha"
+            minlength="8"
+            maxlength="120"
+            autocomplete="new-password"
+            required
+          />
+        </div>
+
+        <!-- AÇÕES -->
+        <div class="formulario__acoes">
+          <button class="btn btn--primario btn--bloco" type="submit">
+            Salvar Perfil
+          </button>
+        </div>
+
+      </form>
+
+      <!-- LINKS DE NAVEGAÇÃO -->
+      <div class="pagina-cadastro__rodape" style="margin-top: 24px; text-align: center;">
+      <!-- LINKS DE NAVEGAÇÃO -->
+<div class="pagina-cadastro__rodape" style="margin-top: 24px; text-align: center;">
+  <a href="{{ url_for('inicio') }}">Voltar para a página inicial</a>
+  <span style="margin: 0 8px;">|</span>
+  <a href="{{ url_for('listar_usuarios') }}">Ver usuários cadastrados</a>
+</div>
+
+    </main>
+  </body>
+</html>

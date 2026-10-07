@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuários Cadastrados - Lumina</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="pagina-cadastro">
+    <main class="container">
+        <header class="pagina-cadastro__cabecalho" style="margin-top: 40px;">
+            <h1 class="pagina-cadastro__titulo">Usuários Cadastrados</h1>
+            <p class="pagina-cadastro__subtitulo">Lista de clientes cadastrados no sistema Lumina</p>
+        </header>
+
+        {% if usuarios %}
+        <div class="tabela-container">
+            <table class="tabela-usuarios">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Telefone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                    <tr>
+                        <td>{{ usuario.id_usuario }}</td>
+                        <td>{{ usuario.nome }}</td>
+                        <td>{{ usuario.email }}</td>
+                        <td>{{ usuario.numero or 'Não informado' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p style="text-align: center; color: var(--cor-cinza-medio); margin-top: 20px;">
+            Nenhum usuário cadastrado até o momento.
+        </p>
+        {% endif %}
+
+        <div class="pagina-cadastro__rodape" style="margin-top: 24px; text-align: center;">
+            <a href="{{ url_for('inicio') }}">← Página Inicial</a>
+            <span style="margin: 0 8px;">|</span>
+            <a href="{{ url_for('cadastro') }}">Voltar ao Formulário de Cadastro</a>
+        </div>
+    </main>
+</body>
+</html>

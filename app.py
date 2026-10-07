@@ -1,43 +1,58 @@
 import os
 import pymysql
+import pymysql.cursors
+
 from flask import Flask, render_template, request
+from werkzeug.security import generate_password_hash
 
 app = Flask(__name__)
 
-# Função de conexão para o banco de dados Lumina
-def conectar_mysql():
 
+# ==========================================
+# CONEXÃO COM O BANCO DE DADOS
+# ==========================================
+
+def conectar_mysql():
     return pymysql.connect(
         host=os.getenv("MYSQL_HOST", "127.0.0.1"),
         user=os.getenv("MYSQL_USER", "root"),
         password=os.getenv("MYSQL_PASSWORD", "senai105"),
         database="lumina_formulario",
-        autocommit=False
+        autocommit=False,
+        cursorclass=pymysql.cursors.DictCursor
     )
 
-# Página inicial
-@app.route("/")
-def index():
 
+# ==========================================
+# PÁGINA INICIAL DA LOJA
+# ==========================================
+
+@app.route("/")
+def inicio():
+    return render_template("index.html")
+
+
+# ==========================================
+# FORMULÁRIO DE CADASTRO
+# ==========================================
+
+@app.route("/cadastro")
+def cadastro():
+    sucesso = request.args.get("sucesso")
     return render_template(
         "forms.html",
         erro=None,
+        sucesso=sucesso,
         valores={}
     )
 
-# Salvar cadastro
-@app.route("/salvar", methods=["GET", "POST"])
+
+# ==========================================
+# SALVAR CADASTRO
+# ==========================================
+
+@app.route("/salvar", methods=["POST"])
 def salvar():
-
-    if request.method == "GET":
-
-        return render_template(
-            "forms.html",
-            erro=None,
-            valores={}
-        )
-
-    # Captura os dados enviados pelo HTML
     nome = request.form.get("nome", "").strip()
     email = request.form.get("email", "").strip()
     telefone = request.form.get("telefone", "").strip()
@@ -49,20 +64,18 @@ def salvar():
         "telefone": telefone
     }
 
-    # Validações básicas de backend
+    # Validações básicas
     if not nome or not email or not telefone or not senha:
-
         return render_template(
             "forms.html",
-            erro="Preencha todos os campos obrigatórios (inclusive senha).",
+            erro="Preencha todos os campos obrigatórios (inclusive a senha).",
             valores=valores
         ), 400
 
     if "@" not in email:
-
         return render_template(
             "forms.html",
-            erro="Confira o formato do email.",
+            erro="Confira o formato do e-mail digitado.",
             valores=valores
         ), 400
 
@@ -70,68 +83,40 @@ def salvar():
     cursor = None
 
     try:
-
         conexao = conectar_mysql()
         cursor = conexao.cursor()
 
-        # Passo 1:
-        # Insere os dados na tabela usuario
-        sql_usuario = """
-            INSERT INTO usuario (nome, email, senha)
-            VALUES (%s, %s, %s)
-        """
-
-        cursor.execute(
-            sql_usuario,
-            (nome, email, senha)
-        )
-
-        # Recupera o id_usuario gerado pelo AUTO_INCREMENT
+        # 1. Inserção do usuário
+        sql_usuario = "INSERT INTO usuario (nome, email, senha) VALUES (%s, %s, %s)"
+        senha_hash = generate_password_hash(senha)
+        cursor.execute(sql_usuario, (nome, email, senha_hash))
         id_usuario_gerado = cursor.lastrowid
 
-        # Passo 2:
-        # Insere o telefone vinculado ao usuário
-        sql_telefone = """
-            INSERT INTO telefone (id_usuario, numero, tipo)
-            VALUES (%s, %s, %s)
-        """
+        # 2. Inserção do telefone
+        sql_telefone = "INSERT INTO telefone (id_usuario, numero, tipo) VALUES (%s, %s, %s)"
+        cursor.execute(sql_telefone, (id_usuario_gerado, telefone, "Celular"))
 
-        cursor.execute(
-            sql_telefone,
-            (
-                id_usuario_gerado,
-                telefone,
-                "Celular"
-            )
-        )
-
-        # Confirma e salva as duas inserções juntas
         conexao.commit()
 
-        return """
-            Cadastro Lumina realizado com sucesso!
-            <br><br>
-            <a href="/usuarios">
-                Ver lista de usuários
-            </a>
-        """
+        return render_template(
+            "forms.html",
+            erro=None,
+            sucesso="Cadastro realizado com sucesso!",
+            valores={}
+        )
 
     except pymysql.MySQLError as erro:
-
-        # Se algo falhar, desfaz a transação
         if conexao:
             conexao.rollback()
 
-        # Erro 1062 = e-mail duplicado
+        # E-mail duplicado
         if len(erro.args) > 0 and erro.args[0] == 1062:
-
             return render_template(
                 "forms.html",
                 erro="Este e-mail já está cadastrado no sistema.",
                 valores=valores
             ), 400
 
-        # Outros erros do banco
         return render_template(
             "forms.html",
             erro=f"Erro no banco de dados: {erro}",
@@ -139,66 +124,48 @@ def salvar():
         ), 500
 
     finally:
-
-        # Fecha o cursor
         if cursor:
             cursor.close()
-
-        # Fecha a conexão
         if conexao:
             conexao.close()
 
 
-# Listar usuários
+# ==========================================
+# PÁGINA SEPARADA DE USUÁRIOS
+# ==========================================
+
 @app.route("/usuarios")
 def listar_usuarios():
-
     conexao = None
     cursor = None
+    todos_usuarios = []
 
     try:
-
         conexao = conectar_mysql()
         cursor = conexao.cursor()
-
-        # Busca os usuários junto com seus telefones
         query = """
-            SELECT
-                u.id_usuario,
-                u.nome,
-                u.email,
-                t.numero,
-                u.data_cadastro
-            FROM usuario u
-            LEFT JOIN telefone t
-                ON u.id_usuario = t.id_usuario
+            SELECT 
+                u.id_usuario, 
+                u.nome, 
+                u.email, 
+                t.numero
+            FROM usuario u 
+            LEFT JOIN telefone t 
+                ON u.id_usuario = t.id_usuario 
+            ORDER BY u.id_usuario DESC
         """
-
         cursor.execute(query)
-
         todos_usuarios = cursor.fetchall()
-
-        # Envia os dados para o arquivo usuarios.html
-        return render_template(
-            "usuarios.html",
-            usuarios=todos_usuarios
-        )
-
     except pymysql.MySQLError as erro:
-
-        return f"Erro ao consultar a lista: {erro}", 500
-
+        print(f"Erro ao consultar usuários: {erro}")
     finally:
-
-        # Fecha o cursor
         if cursor:
             cursor.close()
-
-        # Fecha a conexão
         if conexao:
             conexao.close()
 
+    return render_template("usuarios.html", usuarios=todos_usuarios)
 
-# Inicia o servidor
+
 if __name__ == "__main__":
     app.run(debug=True)
