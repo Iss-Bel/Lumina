@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil | Lumina</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="topbar">
+        <div class="container topbar__conteudo">
+            ✨ Estilo, conforto e versatilidade para acompanhar você ✨
+        </div>
+    </div>
+
+    <header class="cabecalho">
+        <div class="container cabecalho__conteudo">
+            <a class="logo" href="{{ url_for('inicio') }}">
+                <h1 class="logo__titulo">Lumina</h1>
+                <span class="logo__slogan">Moda que combina com você</span>
+            </a>
+
+            <div class="cabecalho__acoes">
+                <a class="btn-icone" href="{{ url_for('perfil') }}" title="Meu Perfil">👤</a>
+                <a class="btn-icone" href="{{ url_for('carrinho') }}" title="Carrinho">🛒</a>
+            </div>
+        </div>
+
+        <nav class="menu">
+            <div class="container menu__conteudo">
+                <ul class="menu__lista">
+                    <li class="menu__item"><a class="menu__link" href="{{ url_for('inicio') }}">Início</a></li>
+                    <li class="menu__item"><a class="menu__link" href="{{ url_for('produtos_pagina') }}">Produtos</a></li>
+                    <li class="menu__item"><a class="menu__link" href="{{ url_for('consultar_pedidos') }}">Histórico de Compras</a></li>
+                    <li class="menu__item"><a class="menu__link" href="{{ url_for('contato') }}">Contato</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="perfil-container">
+            
+            <aside class="perfil-sidebar">
+                <div class="perfil-avatar">
+                    <span>{{ usuario.nome[0] if usuario else 'U' }}</span>
+                </div>
+                <h2>{{ usuario.nome if usuario else session.get('usuario_nome') }}</h2>
+                <p class="perfil-email">{{ usuario.email if usuario else session.get('usuario_email') }}</p>
+
+                <div class="perfil-menu">
+                    <a href="{{ url_for('perfil') }}" class="item-menu ativo">👤 Meus Dados</a>
+                    <a href="{{ url_for('consultar_pedidos') }}" class="item-menu">📦 Meus Pedidos</a>
+                    <a href="{{ url_for('logout') }}" class="item-menu logout">🚪 Sair da Conta</a>
+                </div>
+            </aside>
+
+            <section class="perfil-conteudo">
+                <div class="card-perfil">
+                    <h2>Dados Pessoais</h2>
+                    <p class="subtitulo-card">Suas informações cadastradas na Lumina.</p>
+
+                    <div class="info-grid">
+                        <div class="info-grupo">
+                            <label>Nome Completo</label>
+                            <p>{{ usuario.nome if usuario else 'Não informado' }}</p>
+                        </div>
+
+                        <div class="info-grupo">
+                            <label>E-mail</label>
+                            <p>{{ usuario.email if usuario else 'Não informado' }}</p>
+                        </div>
+
+                        <div class="info-grupo">
+                            <label>Telefone</label>
+                            <p>{{ usuario.telefone if usuario and usuario.telefone else 'Não informado' }}</p>
+                        </div>
+
+                        <div class="info-grupo">
+                            <label>ID do Usuário</label>
+                            <p>#{{ usuario.id_usuario if usuario else '0' }}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="rodape">
+        <div class="container rodape__conteudo">
+            <p>&copy; 2026 <strong>LUMINA</strong>. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

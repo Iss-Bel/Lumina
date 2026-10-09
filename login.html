@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Lumina</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="pagina-cadastro">
+
+    <main class="container container--restrito">
+        
+        <!-- CABEÇALHO -->
+        <header class="pagina-cadastro__cabecalho" style="margin-top: 40px; text-align: center;">
+            <a href="{{ url_for('inicio') }}" class="logo" style="display: inline-block; margin-bottom: 12px;">
+                LUMINA
+            </a>
+            <h1 class="pagina-cadastro__titulo">Acessar Conta</h1>
+            <p class="pagina-cadastro__subtitulo">
+                Informe seu e-mail e senha para acessar sua conta.
+            </p>
+        </header>
+
+        <!-- ALERTA DE ERRO -->
+        {% if erro %}
+        <div class="alerta alerta--erro" role="alert" style="max-width: 500px; margin: 16px auto;">
+            <strong class="alerta__destaque">Erro:</strong> {{ erro }}
+        </div>
+        {% endif %}
+
+        <!-- ALERTA DE SUCESSO -->
+        {% if sucesso %}
+        <div class="alerta alerta--sucesso" role="alert" style="max-width: 500px; margin: 16px auto;">
+            <strong class="alerta__destaque">Sucesso:</strong> {{ sucesso }}
+        </div>
+        {% endif %}
+
+        <!-- FORMULÁRIO DE LOGIN -->
+        <form class="formulario" action="{{ url_for('autenticar') }}" method="POST">
+            
+            <!-- E-MAIL -->
+            <div class="formulario__grupo">
+                <label class="formulario__label" for="email">E-mail:</label>
+                <input
+                    class="formulario__input"
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="seuemail@exemplo.com"
+                    value="{{ email_digitado or '' }}"
+                    autocomplete="email"
+                    required
+                />
+            </div>
+
+            <!-- SENHA -->
+            <div class="formulario__grupo">
+                <label class="formulario__label" for="senha">Senha:</label>
+                <input
+                    class="formulario__input"
+                    type="password"
+                    id="senha"
+                    name="senha"
+                    placeholder="Digite sua senha"
+                    autocomplete="current-password"
+                    required
+                />
+            </div>
+
+            <!-- BOTÃO DE ENTRAR -->
+            <div class="formulario__acoes">
+                <button class="btn btn--primario btn--bloco" type="submit">
+                    Entrar
+                </button>
+            </div>
+
+        </form>
+
+        <!-- LINKS DE NAVEGAÇÃO -->
+        <div class="pagina-cadastro__rodape" style="margin-top: 24px; text-align: center;">
+            <p style="font-size: 0.9rem; color: var(--cinza-escuro);">
+                Ainda não tem uma conta? 
+                <a href="{{ url_for('cadastro') }}" style="font-weight: 700;">Cadastre-se aqui</a>
+            </p>
+            <br>
+            <a href="{{ url_for('inicio') }}">← Voltar para a página inicial</a>
+        </div>
+
+    </main>
+
+</body>
+</html>

@@ -4,12 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cadastro - Lumina</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
   </head>
 
   <body class="pagina-cadastro">
     <main class="container container--restrito">
-      
       <!-- CABEÇALHO DA PÁGINA -->
       <header class="pagina-cadastro__cabecalho">
         <h1 class="pagina-cadastro__titulo">Cadastro Lumina</h1>
@@ -32,9 +34,16 @@
       </div>
       {% endif %}
 
+      <a
+        class="btn-icone"
+        href="{{ url_for('login') }}"
+        title="Minha conta"
+        aria-label="Acessar minha conta"
+      >
+        👤
+      </a>
       <!-- FORMULÁRIO -->
       <form class="formulario" action="{{ url_for('salvar') }}" method="POST">
-        
         <!-- NOME COMPLETO -->
         <div class="formulario__grupo">
           <label class="formulario__label" for="nome">Nome completo:</label>
@@ -108,18 +117,17 @@
             Salvar Perfil
           </button>
         </div>
-
       </form>
 
       <!-- LINKS DE NAVEGAÇÃO -->
-      <div class="pagina-cadastro__rodape" style="margin-top: 24px; text-align: center;">
-      <!-- LINKS DE NAVEGAÇÃO -->
-<div class="pagina-cadastro__rodape" style="margin-top: 24px; text-align: center;">
-  <a href="{{ url_for('inicio') }}">Voltar para a página inicial</a>
-  <span style="margin: 0 8px;">|</span>
-  <a href="{{ url_for('listar_usuarios') }}">Ver usuários cadastrados</a>
-</div>
-
+      <div
+        class="pagina-cadastro__rodape"
+        style="margin-top: 24px; text-align: center"
+      >
+        <a href="{{ url_for('inicio') }}">Voltar para a página inicial</a>
+        <span style="margin: 0 8px">|</span>
+        <a href="{{ url_for('listar_usuarios') }}">Ver usuários cadastrados</a>
+      </div>
     </main>
   </body>
 </html>

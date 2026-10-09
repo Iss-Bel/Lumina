@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Pedidos - Lumina</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body>
+
+    <header class="cabecalho">
+        <h1>Lumina - Loja Virtual</h1>
+
+        <nav class="menu-principal">
+            <a href="{{ url_for('inicio') }}">Início</a>
+            <a href="{{ url_for('cadastro') }}">Cadastro</a>
+            <a href="{{ url_for('listar_usuarios') }}">Usuários</a>
+        </nav>
+    </header>
+
+    <main class="conteudo">
+
+        <section class="secao-pedidos">
+            <h2>Historico de Compras</h2>
+
+            <p>
+                Confira os pedidos cadastrados e seus respectivos clientes.
+            </p>
+
+            {% if erro %}
+
+                <p class="mensagem-erro">{{ erro }}</p>
+
+            {% elif pedidos %}
+
+                <table class="tabela-pedidos" border="1">
+                    <thead>
+                        <tr>
+                            <th>Número do pedido</th>
+                            <th>Nome do cliente</th>
+                            <th>Data do pedido</th>
+                            <th>Valor total</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for pedido in pedidos %}
+                        <tr>
+                            <td>{{ pedido.id_pedido }}</td>
+                            <td>{{ pedido.nome_cliente }}</td>
+                            <td>{{ pedido.data_pedido }}</td>
+                            <td>
+                                {% if pedido.valor_total is not none %}
+                                    R$ {{ "%.2f"|format(pedido.valor_total) }}
+                                {% else %}
+                                    Não informado
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            {% else %}
+
+                <p class="mensagem-vazia">
+                    Nenhum pedido encontrado.
+                </p>
+
+            {% endif %}
+
+        </section>
+
+        <p>
+            <a href="{{ url_for('inicio') }}">Voltar para a página inicial</a>
+        </p>
+
+    </main>
+
+    <footer class="rodape">
+        <p>&copy; 2026 Lumina - Loja Virtual de Roupas</p>
+    </footer>
+
+</body>
+</html>

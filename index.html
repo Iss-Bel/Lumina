@@ -1,129 +1,190 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lumina | Estilo que acompanha você</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumina - Estilo que acompanha você</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
+  <body id="inicio">
+    <!-- BARRA SUPERIOR PROMOCIONAL -->
+    <div class="topbar">
+      <div class="container topbar__conteudo">
+        ✨ Estilo, conforto e versatilidade para acompanhar você ✨
+      </div>
+    </div>
 
-<body id="inicio">
-
-    <!-- CABEÇALHO -->
+    <!-- CABEÇALHO PRINCIPAL -->
     <header class="cabecalho">
+      <div class="container cabecalho__conteudo">
+        <a class="logo" href="{{ url_for('inicio') }}">
+          <h1 class="logo__titulo">Lumina</h1>
+          <span class="logo__slogan">Moda que combina com você</span>
+        </a>
 
-        <!-- BARRA SUPERIOR -->
-        <div class="topbar">
-            <div class="container topbar__conteudo">
-                Estilo, conforto e versatilidade para acompanhar você
-            </div>
+        <div class="cabecalho__acoes">
+          <button
+            class="btn-icone"
+            type="button"
+            title="Buscar"
+            aria-label="Buscar produtos"
+          >
+            🔍
+          </button>
+
+          <a
+            class="btn-icone"
+            href="{{ url_for('login') }}"
+            title="Minha conta"
+            aria-label="Acessar minha conta"
+          >
+            👤
+          </a>
+
+          <a
+            class="btn-icone"
+            href="{{ url_for('carrinho') }}"
+            title="Carrinho de compras"
+            aria-label="Abrir carrinho de compras"
+          >
+            🛒
+          </a>
         </div>
-        
-        <div class="container cabecalho__conteudo">
-            
-            <a class="logo" href="{{ url_for('inicio') }}">
-                <h1 class="logo__titulo">Lumina</h1>
-                <span class="logo__slogan">Estilo que acompanha você</span>
-            </a>
+      </div>
 
-            <div class="cabecalho__acoes">
-                <button class="btn-icone" type="button" title="Buscar" aria-label="Buscar produtos">
-                    🔍
-                </button>
+      <!-- MENU DE NAVEGAÇÃO -->
+      <nav class="menu" aria-label="Navegação principal">
+        <div class="container menu__conteudo">
+          <p class="menu__titulo">
+            <strong>Navegue:</strong>
+          </p>
 
-                <a class="btn-icone" href="{{ url_for('cadastro') }}" title="Minha conta" aria-label="Acessar minha conta e realizar cadastro">
-                    👤
-                </a>
-
-                <button class="btn-icone" type="button" title="Carrinho de compras" aria-label="Abrir carrinho de compras">
-                    🛒
-                </button>
-            </div>
-
+          <ul class="menu__lista">
+            <li class="menu__item">
+              <a class="menu__link" href="#inicio">Início</a>
+            </li>
+            <li class="menu__item">
+              <a class="menu__link" href="#sobre-nos">Sobre nós</a>
+            </li>
+            <li class="menu__item">
+              <a class="menu__link" href="{{ url_for('produtos_pagina') }}">Produtos</a>
+            </li>
+            <li class="menu__item">
+              <a class="menu__link" href="{{ url_for('consultar_pedidos') }}"
+                >Histórico de Compras</a
+              >
+            </li>
+            <li class="menu__item">
+              <a class="menu__link" href="{{ url_for('contato') }}">Contato</a>
+            </li>
+          </ul>
         </div>
-
-        <!-- MENU -->
-        <nav class="menu" aria-label="Navegação principal">
-            <div class="container menu__conteudo">
-                <p class="menu__titulo">
-                    <strong>Navegue pela página:</strong>
-                </p>
-
-                <ul class="menu__lista">
-                    <li class="menu__item"><a class="menu__link" href="#inicio">Início</a></li>
-                    <li class="menu__item"><a class="menu__link" href="#sobre-nos">Sobre nós</a></li>
-                    <li class="menu__item"><a class="menu__link" href="#produtos">Produtos</a></li>
-                    <li class="menu__item"><a class="menu__link" href="#contato">Contato</a></li>
-                </ul>
-            </div>
-        </nav>
-
+      </nav>
     </header>
 
-    <!-- HERO -->
+    <!-- HERO / BANNER PRINCIPAL DE DESTAQUE -->
     <section class="hero" aria-labelledby="titulo-hero">
-        <div class="container hero__conteudo">
-            <h2 class="hero__titulo" id="titulo-hero">Estilo que acompanha você.</h2>
-            <p class="hero__descricao">
-                Na Lumina, acreditamos que uma rotina atarefada não precisa deixar seu estilo e sua personalidade de lado.
-            </p>
-            <p class="hero__descricao">
-                Peças pensadas para acompanhar você em todos os momentos — com conforto, autenticidade e aquele toque especial.
-            </p>
-            <a class="btn btn--primario" href="#produtos">Conheça nossos produtos</a>
-        </div>
+      <div class="container hero__conteudo">
+        <h2 class="hero__titulo" id="titulo-hero">
+          Estilo que acompanha você.
+        </h2>
+        <p class="hero__descricao">
+          Na Lumina, acreditamos que uma rotina atarefada não precisa deixar seu
+          estilo e sua personalidade de lado.
+        </p>
+        <p class="hero__descricao">
+          Peças pensadas para acompanhar você em todos os momentos — com
+          conforto, autenticidade e aquele toque especial.
+        </p>
+        <a class="btn btn--primario" href="#produtos" style="margin-top: 16px;"
+          >Conheça nossos produtos</a
+        >
+      </div>
     </section>
 
     <main class="conteudo-principal">
+      <!-- BANNER DE DESTAQUE -->
+      <section class="banner-principal">
+        <div class="container">
+          <img
+            class="banner-principal__imagem"
+            src="{{ url_for('static', filename='img/logo.jpg') }}"
+            alt="Coleção de roupas da Lumina"
+          />
+        </div>
+      </section>
 
-        <!-- IMAGEM PRINCIPAL -->
-        <section class="banner-principal">
-            <div class="container">
-                <img
-                    class="banner-principal__imagem"
-                    src="{{ url_for('static', filename='img/logo.jpg') }}"
-                    alt="Coleção de roupas da Lumina"
-                    width="1200"
-                >
-            </div>
-        </section>
+      <!-- SOBRE NÓS -->
+      <section id="sobre-nos" class="sobre-nos" aria-labelledby="titulo-sobre">
+        <div class="container sobre-nos__conteudo">
+          <p class="secao__subtitulo">Conheça a Lumina</p>
+          <h2 class="secao__titulo" id="titulo-sobre">Sobre nós</h2>
+          <p class="sobre-nos__texto" style="max-width: 700px; margin: 0 auto; color: var(--cinza-escuro);">
+            Nossa missão é trazer peças de qualidade e design atemporal para
+            tornar o seu dia a dia mais prático, elegante e autêntico.
+          </p>
+        </div>
+      </section>
 
-        <!-- SOBRE NÓS -->
-        <section id="sobre-nos" class="sobre-nos" aria-labelledby="titulo-sobre">
-            <div class="container sobre-nos__conteudo">
-                <p class="secao__subtitulo">Conheça a Lumina</p>
-                <h2 class="secao__titulo" id="titulo-sobre">Sobre nós</h2>
-                <p class="sobre-nos__texto">
-                    Nossa missão é trazer peças de qualidade e design atemporal para tornar o seu dia a dia mais prático e elegante.
-                </p>
-            </div>
-        </section>
+      <!-- VITRINE DE PRODUTOS -->
+      <section id="produtos" class="produtos" aria-labelledby="titulo-produtos">
+        <div class="container">
+          <p class="secao__subtitulo">Destaques da Coleção</p>
+          <h2 class="secao__titulo" id="titulo-produtos">Produtos</h2>
+          <p style="margin-bottom: 32px; color: var(--cinza-medio);">Confira nossos lançamentos e coleções exclusivas.</p>
 
-        <!-- PRODUTOS -->
-        <section id="produtos" class="produtos" aria-labelledby="titulo-produtos">
-            <div class="container">
-                <h2 class="secao__titulo" id="titulo-produtos">Produtos</h2>
-                <p>Confira nossos lançamentos e coleções exclusivas.</p>
-            </div>
-        </section>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;">
+            <!-- CARD PRODUTO 1 -->
+            <article class="produto" style="display: flex; flex-direction: column; text-align: center; padding: 20px;">
+              <img src="https://placehold.co/260x300/f0e9df/333333?text=Blusa+Cropped" alt="Blusa Cropped" style="width: 100%; height: 260px; object-fit: cover; border-radius: var(--raio-sm); margin-bottom: 12px;">
+              <h3>Blusa Cropped</h3>
+              <p style="color: var(--cinza-medio); font-size: 0.85rem;">Tamanho M • Cor Preta</p>
+              <div class="preco" style="font-size: 1.2rem; font-weight: 800; margin: 8px 0;">R$ 79,90</div>
+              <a href="{{ url_for('carrinho') }}" class="btn btn--primario" style="padding: 10px; font-size: 0.85rem;">Adicionar ao Carrinho</a>
+            </article>
 
-        <!-- CONTATO -->
-        <section id="contato" class="contato" aria-labelledby="titulo-contato">
-            <div class="container">
-                <h2 class="secao__titulo" id="titulo-contato">Contato</h2>
-                <p>Entre em contato conosco pelo e-mail suporte@lumina.com.</p>
-            </div>
-        </section>
+            <!-- CARD PRODUTO 2 -->
+            <article class="produto" style="display: flex; flex-direction: column; text-align: center; padding: 20px;">
+              <img src="https://placehold.co/260x300/e4edf3/333333?text=Calca+Jeans" alt="Calça Jeans Wide Leg" style="width: 100%; height: 260px; object-fit: cover; border-radius: var(--raio-sm); margin-bottom: 12px;">
+              <h3>Calça Jeans Wide Leg</h3>
+              <p style="color: var(--cinza-medio); font-size: 0.85rem;">Tamanho 38 • Cor Azul</p>
+              <div class="preco" style="font-size: 1.2rem; font-weight: 800; margin: 8px 0;">R$ 149,90</div>
+              <a href="{{ url_for('carrinho') }}" class="btn btn--primario" style="padding: 10px; font-size: 0.85rem;">Adicionar ao Carrinho</a>
+            </article>
 
+            <!-- CARD PRODUTO 3 -->
+            <article class="produto" style="display: flex; flex-direction: column; text-align: center; padding: 20px;">
+              <img src="https://placehold.co/260x300/f0efed/333333?text=Tenis+Casual" alt="Tênis Casual" style="width: 100%; height: 260px; object-fit: cover; border-radius: var(--raio-sm); margin-bottom: 12px;">
+              <h3>Tênis Casual</h3>
+              <p style="color: var(--cinza-medio); font-size: 0.85rem;">Tamanho 37 • Cor Branco</p>
+              <div class="preco" style="font-size: 1.2rem; font-weight: 800; margin: 8px 0;">R$ 119,90</div>
+              <a href="{{ url_for('carrinho') }}" class="btn btn--primario" style="padding: 10px; font-size: 0.85rem;">Adicionar ao Carrinho</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ATENDIMENTO E CONTATO -->
+      <section id="contato" class="contato" aria-labelledby="titulo-contato">
+        <div class="container">
+          <p class="secao__subtitulo">Fale Conosco</p>
+          <h2 class="secao__titulo" id="titulo-contato">Atendimento Lumina</h2>
+          <p style="margin-bottom: 20px; color: var(--cinza-escuro);">Tem alguma dúvida sobre seu pedido ou quer nos enviar uma mensagem?</p>
+          <a class="btn btn--primario" href="{{ url_for('contato') }}">Ir para a Página de Contato</a>
+        </div>
+      </section>
     </main>
 
-    <!-- RODAPÉ DA PÁGINA -->
+    <!-- RODAPÉ -->
     <footer class="rodape">
-        <div class="container rodape__conteudo">
-            <p>&copy; 2026 Lumina. Todos os direitos reservados.</p>
-        </div>
+      <div class="container rodape__conteudo">
+        <p>&copy; 2026 <strong>LUMINA</strong>. Todos os direitos reservados.</p>
+        <p style="font-size: 0.8rem; margin-top: 6px; opacity: 0.8;">Entrega para todo o Brasil • Compra Segura</p>
+      </div>
     </footer>
-
-</body>
+  </body>
 </html>

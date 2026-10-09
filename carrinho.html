@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho de Compras | Lumina</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="aviso">
+        ✨ Estilo, conforto e versatilidade para acompanhar você ✨
+    </div>
+
+    <header>
+        <a href="{{ url_for('inicio') }}" class="logo">
+            LUMINA
+            <small>Moda que combina com você</small>
+        </a>
+
+        <nav>
+            <a href="{{ url_for('inicio') }}">Início</a>
+            <a href="{{ url_for('inicio') }}#sobre-nos">Sobre nós</a>
+            <a href="{{ url_for('inicio') }}#produtos">Produtos</a>
+        </nav>
+
+        <a href="{{ url_for('carrinho') }}">
+            🛒 <span class="carrinho-contador" id="contador">0</span>
+        </a>
+    </header>
+
+    <main>
+        <div class="titulo">
+            <h1>🛒 Carrinho de Compras</h1>
+            <p>Confira os produtos que você selecionou antes de finalizar sua compra.</p>
+        </div>
+
+        <div id="area-carrinho">
+            {% if produtos %}
+            <div class="conteudo">
+
+                <section class="produtos" id="lista-produtos">
+                    {% for produto in produtos %}
+                    <article class="produto" data-preco="{{ produto.preco }}">
+                        <img
+                            src="{{ produto.imagem or 'https://placehold.co/200x240/f0e9df/333333?text=Produto' }}"
+                            alt="{{ produto.nome }}"
+                        >
+
+                        <div>
+                            <h3>{{ produto.nome }}</h3>
+                            <p>Tamanho: {{ produto.tamanho or 'Único' }}</p>
+                            <p>Cor: {{ produto.cor or 'Padrão' }}</p>
+                            <div class="preco">R$ {{ "%.2f"|format(produto.preco)|replace('.', ',') }}</div>
+
+                            <div class="controles">
+                                <button onclick="alterarQuantidade(this, -1)"
+                                    aria-label="Diminuir quantidade">−</button>
+                                <span class="quantidade">{{ produto.quantidade or 1 }}</span>
+                                <button onclick="alterarQuantidade(this, 1)"
+                                    aria-label="Aumentar quantidade">+</button>
+                            </div>
+
+                            <button class="remover" onclick="removerProduto(this)">
+                                Remover produto
+                            </button>
+                        </div>
+
+                        <div class="subtotal-produto">
+                            R$ {{ "%.2f"|format(produto.preco * (produto.quantidade or 1))|replace('.', ',') }}
+                        </div>
+                    </article>
+                    {% endfor %}
+                </section>
+
+                <aside class="resumo">
+                    <h2>Resumo do Pedido</h2>
+
+                    <div class="linha-resumo">
+                        <span>Subtotal</span>
+                        <span id="subtotal">R$ 0,00</span>
+                    </div>
+
+                    <div class="linha-resumo">
+                        <span>Frete</span>
+                        <span id="frete">Grátis</span>
+                    </div>
+
+                    <div class="linha-resumo total">
+                        <span>Total</span>
+                        <span id="total">R$ 0,00</span>
+                    </div>
+
+                    <button class="finalizar" onclick="finalizarCompra()">
+                        🔒 Finalizar compra
+                    </button>
+                </aside>
+
+            </div>
+
+            <button class="limpar" onclick="limparCarrinho()">
+                Limpar carrinho
+            </button>
+
+            <br>
+
+            <a class="continuar" href="{{ url_for('inicio') }}">
+                ← Continuar comprando
+            </a>
+
+            {% else %}
+            <!-- ESTADO INICIAL VAZIO CUJO USUÁRIO AINDA NÃO ADICIONOU NENHUM PRODUTO -->
+            <div class="vazio">
+                <h2>Seu carrinho está vazio 🛒</h2>
+                <p>Que tal encontrar algo especial para você?</p>
+                <br>
+                <a class="btn btn--primario" href="{{ url_for('inicio') }}" style="display: inline-block; width: auto; padding: 10px 24px;">
+                    Voltar para a loja
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer>
+        <strong>LUMINA</strong> — Moda que combina com você
+        <br>
+        Entrega para todo o Brasil • Compra segura • Diversas formas de pagamento
+    </footer>
+
+    <script>
+        function formatarMoeda(valor) {
+            return valor.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL"
+            });
+        }
+
+        function atualizarResumo() {
+            const produtos = document.querySelectorAll(".produto");
+            let subtotal = 0;
+            let quantidadeTotal = 0;
+
+            produtos.forEach(produto => {
+                const preco = Number(produto.dataset.preco);
+                const quantidade = Number(
+                    produto.querySelector(".quantidade").textContent
+                );
+
+                const valorProduto = preco * quantidade;
+
+                produto.querySelector(".subtotal-produto").textContent =
+                    formatarMoeda(valorProduto);
+
+                subtotal += valorProduto;
+                quantidadeTotal += quantidade;
+            });
+
+            const elemSubtotal = document.getElementById("subtotal");
+            const elemFrete = document.getElementById("frete");
+            const elemTotal = document.getElementById("total");
+            const elemContador = document.getElementById("contador");
+
+            if (elemSubtotal) elemSubtotal.textContent = formatarMoeda(subtotal);
+            if (elemFrete) elemFrete.textContent = subtotal > 0 ? "Grátis" : formatarMoeda(0);
+            if (elemTotal) elemTotal.textContent = formatarMoeda(subtotal);
+            if (elemContador) elemContador.textContent = quantidadeTotal;
+
+            if (produtos.length === 0) {
+                document.getElementById("area-carrinho").innerHTML = `
+                    <div class="vazio">
+                        <h2>Seu carrinho está vazio 🛒</h2>
+                        <p>Que tal encontrar algo especial para você?</p>
+                        <br>
+                        <a class="btn btn--primario" href="{{ url_for('inicio') }}" style="display: inline-block; width: auto; padding: 10px 24px;">
+                            Voltar para a loja
+                        </a>
+                    </div>
+                `;
+            }
+        }
+
+        function alterarQuantidade(botao, variacao) {
+            const produto = botao.closest(".produto");
+            const campo = produto.querySelector(".quantidade");
+            let quantidade = Number(campo.textContent);
+
+            quantidade += variacao;
+
+            if (quantidade < 1) {
+                return;
+            }
+
+            campo.textContent = quantidade;
+            atualizarResumo();
+        }
+
+        function removerProduto(botao) {
+            botao.closest(".produto").remove();
+            atualizarResumo();
+        }
+
+        function limparCarrinho() {
+            const lista = document.getElementById("lista-produtos");
+            if (lista) lista.innerHTML = "";
+            atualizarResumo();
+        }
+
+        function finalizarCompra() {
+            const produtos = document.querySelectorAll(".produto");
+
+            if (produtos.length === 0) {
+                alert("Seu carrinho está vazio!");
+                return;
+            }
+
+            alert("Carrinho conferido! A finalização do pedido precisa ser conectada ao sistema Lumina.");
+        }
+
+        atualizarResumo();
+    </script>
+
+</body>
+</html>

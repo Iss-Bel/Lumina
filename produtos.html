@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos | Lumina</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="topbar">
+        <div class="container topbar__conteudo">
+            ✨ Estilo, conforto e versatilidade para acompanhar você ✨
+        </div>
+    </div>
+
+    <header class="cabecalho">
+        <div class="container cabecalho__conteudo">
+            <a class="logo" href="{{ url_for('inicio') }}">
+                <h1 class="logo__titulo">Lumina</h1>
+                <span class="logo__slogan">Moda que combina com você</span>
+            </a>
+
+            <div class="cabecalho__acoes">
+                <button class="btn-icone" type="button" title="Buscar" aria-label="Buscar produtos">
+                    🔍
+                </button>
+                <a class="btn-icone" href="{{ url_for('login') }}" title="Minha conta" aria-label="Acessar minha conta">
+                    👤
+                </a>
+                <a class="btn-icone" href="{{ url_for('carrinho') }}" title="Carrinho de compras" aria-label="Abrir carrinho">
+                    🛒
+                </a>
+            </div>
+        </div>
+
+        <nav class="menu" aria-label="Navegação principal">
+            <div class="container menu__conteudo">
+                <p class="menu__titulo"><strong>Navegue:</strong></p>
+                <ul class="menu__lista">
+                    <li class="menu__item"><a class="menu__link" href="{{ url_for('inicio') }}">Início</a></li>
+                    <li class="menu__item"><a class="menu__link" href="{{ url_for('inicio') }}#sobre-nos">Sobre nós</a></li>
+                    <li class="menu__item"><a class="menu__link" href="{{ url_for('produtos_pagina') }}">Produtos</a></li>
+                    <li class="menu__item"><a class="menu__link" href="{{ url_for('consultar_pedidos') }}">Histórico de Compras</a></li>
+                    <li class="menu__item"><a class="menu__link" href="{{ url_for('contato') }}">Contato</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="titulo">
+            <h1>Coleção de Roupas</h1>
+            <p>Explore as nossas peças exclusivas das linhas Feminina, Masculina e Unissex.</p>
+        </div>
+
+        <!-- ESTRUTURA PRINCIPAL COM SIDEBAR LATERAL E GRADE DE PRODUTOS -->
+        <div class="layout-produtos">
+            
+            <!-- RETÂNGULO LATERAL (SIDEBAR DE CATEGORIAS E FILTROS) -->
+            <aside class="sidebar-categorias">
+                <div class="sidebar-bloco">
+                    <h3>Categorias</h3>
+                    <ul class="lista-categorias">
+                        <li><a href="#" class="categoria-item ativa">Todas as Peças <span class="badge">12</span></a></li>
+                        <li><a href="#" class="categoria-item">Feminino <span class="badge">5</span></a></li>
+                        <li><a href="#" class="categoria-item">Masculino <span class="badge">4</span></a></li>
+                        <li><a href="#" class="categoria-item">Unissex <span class="badge">3</span></a></li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-bloco">
+                    <h3>Filtrar por Tamanho</h3>
+                    <div class="grupo-filtros-tamanho">
+                        <button type="button" class="btn-tamanho">PP</button>
+                        <button type="button" class="btn-tamanho">P</button>
+                        <button type="button" class="btn-tamanho ativo">M</button>
+                        <button type="button" class="btn-tamanho">G</button>
+                        <button type="button" class="btn-tamanho">GG</button>
+                    </div>
+                </div>
+
+                <div class="sidebar-bloco">
+                    <h3>Faixa de Preço</h3>
+                    <div class="filtro-preco">
+                        <label><input type="checkbox"> Até R$ 99,00</label>
+                        <label><input type="checkbox"> R$ 100,00 a R$ 199,00</label>
+                        <label><input type="checkbox"> Acima de R$ 200,00</label>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- VITRINE COM A GRADE DE PRODUTOS -->
+            <section class="vitrine-produtos">
+                
+                <!-- BARRA SUPERIOR DE ORDENAÇÃO -->
+                <div class="barra-ordenacao">
+                    <span>A exibir <strong>3</strong> produtos</span>
+                    <select class="select-ordenar">
+                        <option value="relevancia">Ordenar por: Relevância</option>
+                        <option value="menor-preco">Menor preço</option>
+                        <option value="maior-preco">Maior preço</option>
+                        <option value="novidades">Lançamentos</option>
+                    </select>
+                </div>
+
+                <!-- CARDS DE PRODUTOS (EXCLUSIVAMENTE ROUPAS) -->
+                <div class="grid-produtos">
+                    
+                    <!-- PRODUTO FEMININO -->
+                    <article class="produto-card">
+                        <div class="imagem-wrapper">
+                            <img src="https://placehold.co/260x320/f0e9df/333333?text=Feminino" alt="Blusa Cropped Elegante">
+                        </div>
+                        <div class="produto-info">
+                            <h3>Blusa Cropped Elegante</h3>
+                            <p class="detalhes">Feminino • Tamanho M • Cor Preta</p>
+                            <div class="preco">R$ 79,90</div>
+                            <a href="{{ url_for('carrinho') }}" class="btn btn--primario btn--bloco">Adicionar ao Carrinho</a>
+                        </div>
+                    </article>
+
+                    <!-- PRODUTO MASCULINO -->
+                    <article class="produto-card">
+                        <div class="imagem-wrapper">
+                            <img src="https://placehold.co/260x320/e4edf3/333333?text=Masculino" alt="Camiseta Oversized Streetwear">
+                        </div>
+                        <div class="produto-info">
+                            <h3>Camiseta Oversized</h3>
+                            <p class="detalhes">Masculino • Tamanho G • Cor Off-White</p>
+                            <div class="preco">R$ 99,90</div>
+                            <a href="{{ url_for('carrinho') }}" class="btn btn--primario btn--bloco">Adicionar ao Carrinho</a>
+                        </div>
+                    </article>
+
+                    <!-- PRODUTO UNISSEX -->
+                    <article class="produto-card">
+                        <div class="imagem-wrapper">
+                            <img src="https://placehold.co/260x320/f0efed/333333?text=Unissex" alt="Jaqueta Corta-Vento">
+                        </div>
+                        <div class="produto-info">
+                            <h3>Jaqueta Corta-Vento
