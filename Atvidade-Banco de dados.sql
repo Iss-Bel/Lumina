@@ -300,3 +300,38 @@ INNER JOIN produtos p
     -- PK (Primary Key): produtos.produto_id
     -- FK (Foreign Key): lote.produto_id
     ON l.produto_id = p.produto_id;
+SELECT * FROM usuarios
+
+SELECT 
+    (SELECT COUNT(*) FROM usuario) AS total_usuarios,
+    (SELECT COUNT(*) FROM clientes) AS total_clientes,
+    (SELECT COUNT(*) FROM pedidos) AS total_pedidos,
+    (SELECT COUNT(*) FROM itens_pedido) AS total_itens_pedido,
+    (SELECT COUNT(*) FROM pagamentos) AS total_pagamentos;
+    
+-- Deve retornar 70 linhas (apenas os clientes que compraram
+SELECT 
+    c.cliente_id,
+    c.id_usuario,
+    p.pedido_id,
+    p.total_pedido
+FROM clientes c
+INNER JOIN pedidos p ON c.cliente_id = p.cliente_id;
+
+-- Deve retornar 101 linhas (os 70 com pedido + os 30 sem pedido com campos a NULL
+SELECT 
+    c.cliente_id,
+    c.id_usuario,
+    p.pedido_id,
+    p.total_pedido
+FROM clientes c
+LEFT JOIN pedidos p ON c.cliente_id = p.cliente_id;
+
+-- Deve retornar 30 linhas (os clientes que ainda não realizaram nenhuma compra):
+SELECT 
+    c.cliente_id,
+    c.id_usuario,
+    p.pedido_id
+FROM clientes c
+LEFT JOIN pedidos p ON c.cliente_id = p.cliente_id
+WHERE p.pedido_id IS NULL;
