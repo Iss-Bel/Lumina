@@ -22,7 +22,7 @@
         <nav>
             <a href="{{ url_for('inicio') }}">Início</a>
             <a href="{{ url_for('inicio') }}#sobre-nos">Sobre nós</a>
-            <a href="{{ url_for('inicio') }}#produtos">Produtos</a>
+            <a href="{{ url_for('produtos_pagina') }}">Produtos</a>
         </nav>
 
         <a href="{{ url_for('carrinho') }}">
@@ -110,7 +110,7 @@
             </a>
 
             {% else %}
-            <!-- ESTADO INICIAL VAZIO CUJO USUÁRIO AINDA NÃO ADICIONOU NENHUM PRODUTO -->
+            <!-- ESTADO INICIAL VAZIO -->
             <div class="vazio">
                 <h2>Seu carrinho está vazio 🛒</h2>
                 <p>Que tal encontrar algo especial para você?</p>
