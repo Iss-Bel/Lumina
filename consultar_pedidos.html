@@ -1,86 +1,288 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultar Pedidos - Lumina</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consultar Pedidos | Lumina</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
-<body>
+<body id="inicio">
 
-    <header class="cabecalho">
-        <h1>Lumina - Loja Virtual</h1>
+  <!-- Barra de Topo Promocional -->
+  <div class="top-banner">
+    <div class="top-banner-container">
+      <div class="banner-item">
+        <svg class="banner-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M19 6h-2c0-2.21-1.79-4-4-4S9 3.79 9 6H7c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6-2c1.1 0 2 .9 2 2h-4c0-1.1.9-2 2-2zm6 14H7V8h2v2c0 .55.45 1 1 1s1-.45 1-1V8h4v2c0 .55.45 1 1 1s1-.45 1-1V8h2v10z"
+          />
+        </svg>
+        <strong>Seja um Parceiro Lumina</strong>
+        <a href="{{ url_for('cadastro') }}" class="banner-link">Cadastre-se agora</a>
+      </div>
 
-        <nav class="menu-principal">
-            <a href="{{ url_for('inicio') }}">Início</a>
-            <a href="{{ url_for('cadastro') }}">Cadastro</a>
-            <a href="{{ url_for('listar_usuarios') }}">Usuários</a>
-        </nav>
-    </header>
+      <span class="banner-divider" aria-hidden="true">|</span>
 
-    <main class="conteudo">
+      <div class="banner-item">
+        <svg class="banner-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"
+          />
+        </svg>
+        <strong>Frete Grátis</strong>
+        <a href="{{ url_for('produtos_pagina') }}" class="banner-link">Veja condições</a>
+      </div>
 
-        <section class="secao-pedidos">
-            <h2>Historico de Compras</h2>
+      <span class="banner-divider" aria-hidden="true">|</span>
 
-            <p>
-                Confira os pedidos cadastrados e seus respectivos clientes.
-            </p>
+      <div class="banner-item rotator-container">
+        <svg class="banner-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+          />
+        </svg>
+        <div class="rotator-text">
+          <span class="rotator-item"><strong>Devolução Grátis</strong> em até 30 dias!</span>
+          <span class="rotator-item"><strong>Até 50% OFF</strong> na nova coleção!</span>
+          <span class="rotator-item"><strong>Parcele em até 6x</strong> sem juros!</span>
+          <span class="rotator-item"><strong>Cupom LUMINA10</strong> para a 1ª compra!</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            {% if erro %}
+  <!-- Cabeçalho Principal -->
+  <header class="header-principal">
+    <div class="header-container">
+      <a href="{{ url_for('inicio') }}" class="logo-link">
+        <img
+          src="{{ url_for('static', filename='img/Lumina.webp') }}"
+          alt="Logotipo Lumina"
+          width="300"
+          class="logo-flutuante"
+        />
+      </a>
 
-                <p class="mensagem-erro">{{ erro }}</p>
+      <!-- Menu de Navegação e Barra de Ações -->
+      <nav class="nav-principal" aria-label="Navegação principal">
+        <div class="nav-header-container">
+          <!-- Caixa de Pesquisa -->
+          <div class="search-container">
+            <form
+              class="search-box"
+              action="{{ url_for('produtos_pagina') }}"
+              method="GET"
+              role="search"
+            >
+              <label for="search-input" class="sr-only">Buscar produtos</label>
+              <input
+                type="search"
+                id="search-input"
+                name="q"
+                class="search-input"
+                placeholder="Buscar produtos, marcas, tendências..."
+                required
+              />
+              <button
+                type="submit"
+                class="search-button sparkle-btn"
+                aria-label="Pesquisar"
+              >
+                <svg
+                  class="search-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </button>
+            </form>
+          </div>
 
-            {% elif pedidos %}
+          <!-- Ações do Usuário -->
+          <div class="user-actions">
+            <a
+              href="{{ url_for('provador') }}"
+              class="btn-profile sparkle-btn"
+              aria-label="Provador Virtual"
+            >
+              <svg
+                class="action-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M20.38 3.46L16 2a4 4 0 0 0-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path>
+              </svg>
+              <span>Provador Virtual</span>
+            </a>
 
-                <table class="tabela-pedidos" border="1">
-                    <thead>
-                        <tr>
-                            <th>Número do pedido</th>
-                            <th>Nome do cliente</th>
-                            <th>Data do pedido</th>
-                            <th>Valor total</th>
-                        </tr>
-                    </thead>
+            <a
+              href="{{ url_for('perfil') }}"
+              class="btn-profile sparkle-btn"
+              aria-label="Meu Perfil"
+            >
+              <svg
+                class="action-icon user-silhouette"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                />
+              </svg>
+              <span>Perfil</span>
+            </a>
 
-                    <tbody>
-                        {% for pedido in pedidos %}
-                        <tr>
-                            <td>{{ pedido.id_pedido }}</td>
-                            <td>{{ pedido.nome_cliente }}</td>
-                            <td>{{ pedido.data_pedido }}</td>
-                            <td>
-                                {% if pedido.valor_total is not none %}
-                                    R$ {{ "%.2f"|format(pedido.valor_total) }}
-                                {% else %}
-                                    Não informado
-                                {% endif %}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+            <a
+              href="{{ url_for('consultar_pedidos') }}"
+              class="btn-profile sparkle-btn"
+              aria-label="Consultar Pedidos"
+              title="Consultar Pedidos"
+            >
+              <svg
+                class="action-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path
+                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                ></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+              <span>Pedidos</span>
+            </a>
 
-            {% else %}
+            <a
+              href="{{ url_for('carrinho') }}"
+              class="btn-cart sparkle-btn"
+              aria-label="Carrinho de Compras com {{ session.get('carrinho', [])|length }} itens"
+            >
+              <svg
+                class="action-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path
+                  d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+                ></path>
+              </svg>
+              <span class="cart-count"
+                >{{ session.get('carrinho', [])|length }}</span
+              >
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
 
-                <p class="mensagem-vazia">
-                    Nenhum pedido encontrado.
-                </p>
+  <!-- Categorias do Menu Centralizadas -->
+  <nav class="nav-categorias" aria-label="Categorias de produtos" style="display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;">
+    <a href="{{ url_for('produtos_pagina', categoria='ofertas') }}" class="btn-category sparkle-btn">Ofertas</a>
+    <a href="{{ url_for('produtos_pagina', categoria='trending') }}" class="btn-category sparkle-btn">Trending</a>
+    <a href="{{ url_for('produtos_pagina', categoria='esportivo') }}" class="btn-category sparkle-btn">Esportivo</a>
+    <a href="{{ url_for('produtos_pagina', categoria='feminino') }}" class="btn-category sparkle-btn">Feminino</a>
+    <a href="{{ url_for('produtos_pagina', categoria='infantil') }}" class="btn-category sparkle-btn">Moda Infantil</a>
+    <a href="{{ url_for('produtos_pagina', categoria='novidades') }}" class="btn-category sparkle-btn">Novidades</a>
+  </nav>
 
-            {% endif %}
-
-        </section>
-
-        <p>
-            <a href="{{ url_for('inicio') }}">Voltar para a página inicial</a>
+  <!-- Conteúdo Principal -->
+  <main class="container" style="margin-top: 40px; margin-bottom: 60px; min-height: 60vh;">
+    
+    <div class="secao-pedidos">
+      <div class="secao-pedidos__cabecalho">
+        <h1 class="secao-pedidos__titulo">Histórico de Compras</h1>
+        <p class="secao-pedidos__subtitulo">
+          Confira os pedidos cadastrados e seus respectivos clientes.
         </p>
+      </div>
 
-    </main>
+      {% if erro %}
+        <div class="alerta alerta--erro">
+          {{ erro }}
+        </div>
+      {% elif pedidos and pedidos|length > 0 %}
+        <div class="tabela-container">
+          <table class="tabela-pedidos">
+            <thead>
+              <tr>
+                <th>Número do Pedido</th>
+                <th>Nome do Cliente</th>
+                <th>Data do Pedido</th>
+                <th>Valor Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for pedido in pedidos %}
+              <tr>
+                <td class="col-id">#{{ pedido.id_pedido }}</td>
+                <td class="col-cliente"><strong>{{ pedido.nome_cliente }}</strong></td>
+                <td class="col-data">{{ pedido.data_pedido }}</td>
+                <td class="col-valor">
+                  {% if pedido.valor_total is not none %}
+                    R$ {{ "%.2f"|format(pedido.valor_total) }}
+                  {% else %}
+                    Não informado
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <div class="vazio-pedidos">
+          <p>Nenhum pedido encontrado no sistema.</p>
+        </div>
+      {% endif %}
 
-    <footer class="rodape">
-        <p>&copy; 2026 Lumina - Loja Virtual de Roupas</p>
-    </footer>
+      <div style="margin-top: 30px; text-align: center;">
+        <a href="{{ url_for('inicio') }}" class="btn btn--secundario">
+          ← Voltar para a página inicial
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Rodapé -->
+  <footer id="contato">
+    <p>&copy; 2026 Lumina. Todos os direitos reservados.</p>
+  </footer>
 
 </body>
+
 </html>
