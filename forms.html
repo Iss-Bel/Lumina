@@ -1,245 +1,604 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lumina: Moda, Beleza e Estilo de Vida</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lumina | Estilo que acompanha você</title>
-
-  <!-- Conecta o arquivo CSS externo -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-
-<body id="inicio">
-
-  <!-- Barra de Topo Promocional -->
-  <div class="topbar top-banner">
-    <div class="container topbar__conteudo top-banner-container">
-
-      <!-- Item 1: Venda conosco -->
-      <div class="banner-item">
-        <svg class="banner-icon" viewBox="0 0 24 24">
-          <path d="M19 6h-2c0-2.21-1.79-4-4-4S9 3.79 9 6H7c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6-2c1.1 0 2 .9 2 2h-4c0-1.1.9-2 2-2zm6 14H7V8h2v2c0 .55.45 1 1 1s1-.45 1-1V8h4v2c0 .55.45 1 1 1s1-.45 1-1V8h2v10z"/>
-        </svg>
-        <strong>Seja um Parceiro Lumina</strong>
-        <a href="{{ url_for('cadastro') }}" class="banner-link">Cadastre-se agora</a>
-      </div>
-
-      <span class="banner-divider">|</span>
-
-      <!-- Item 2: Frete -->
-      <div class="banner-item">
-        <svg class="banner-icon" viewBox="0 0 24 24">
-          <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
-        </svg>
-        <strong>Frete Grátis</strong>
-        <a href="#" class="banner-link">Veja condições</a>
-      </div>
-
-      <span class="banner-divider">|</span>
-
-      <!-- Item 3: Frases Rotativas -->
-      <div class="banner-item rotator-container">
-        <svg class="banner-icon" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-        </svg>
-        <div class="rotator-text">
-          <span class="rotator-item"><strong>Devolução Grátis</strong> em até 30 dias!</span>
-          <span class="rotator-item"><strong>Até 50% OFF</strong> na nova coleção!</span>
-          <span class="rotator-item"><strong>Parcele em até 6x</strong> sem juros!</span>
-          <span class="rotator-item"><strong>Cupom LUMINA10</strong> para a 1ª compra!</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Cabeçalho Principal -->
-  <header class="cabecalho">
-    <div class="container cabecalho__conteudo">
-      <a class="logo" href="{{ url_for('inicio') }}">
-        <img src="{{ url_for('static', filename='img/logo_lumina.png') }}" alt="Logotipo da Minha Empresa" width="300" class="logo-flutuante">
-      </a>
-
-      <!-- Caixa de Pesquisa e Ações do Usuário -->
-      <div class="cabecalho__acoes user-actions">
-        <div class="search-container">
-          <form class="search-box" action="#" method="GET">
-            <input type="text" class="search-input" placeholder="Buscar produtos, marcas, tendências..." required>
-            <button type="submit" class="search-button sparkle-btn btn-icone" aria-label="Pesquisar" title="Buscar">
-              <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-              <span class="sparkles">
-                <svg class="star star-1" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-                </svg>
-                <svg class="star star-2" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 9.41L0 12L9.41 9.41L12 0Z" />
-                </svg>
-              </span>
-            </button>
-          </form>
+  <body id="inicio">
+    <!-- Barra de Topo Promocional -->
+    <div class="top-banner">
+      <div class="top-banner-container">
+        <div class="banner-item">
+          <svg class="banner-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M19 6h-2c0-2.21-1.79-4-4-4S9 3.79 9 6H7c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6-2c1.1 0 2 .9 2 2h-4c0-1.1.9-2 2-2zm6 14H7V8h2v2c0 .55.45 1 1 1s1-.45 1-1V8h4v2c0 .55.45 1 1 1s1-.45 1-1V8h2v10z"
+            />
+          </svg>
+          <strong>Seja um Parceiro Lumina</strong>
+          <a href="{{ url_for('cadastro') }}" class="banner-link"
+            >Cadastre-se agora</a
+          >
         </div>
 
-        <!-- Botão Perfil -->
-        <a href="{{ url_for('login') }}" class="btn-profile sparkle-btn btn-icone" aria-label="Meu Perfil" title="Minha conta">
-          <svg class="action-icon user-silhouette" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-          </svg>
-          <span>Perfil</span>
-          <span class="sparkles">
-            <svg class="star star-1" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-            </svg>
-            <svg class="star star-2" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-            </svg>
-          </span>
-        </a>
+        <span class="banner-divider" aria-hidden="true">|</span>
 
-        <!-- Botão Carrinho -->
-        <a href="{{ url_for('carrinho') }}" class="btn-cart sparkle-btn btn-icone" aria-label="Carrinho de Compras" title="Carrinho de compras">
-          <svg class="action-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="9" cy="21" r="1"></circle>
-            <circle cx="20" cy="21" r="1"></circle>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        <div class="banner-item">
+          <svg class="banner-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"
+            />
           </svg>
-          <span class="cart-count">0</span>
-          <span class="sparkles">
-            <svg class="star star-1" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-            </svg>
-            <svg class="star star-2" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
-            </svg>
-          </span>
-        </a>
+          <strong>Frete Grátis</strong>
+          <a href="#produtos" class="banner-link">Veja condições</a>
+        </div>
+
+        <span class="banner-divider" aria-hidden="true">|</span>
+
+        <div class="banner-item rotator-container">
+          <svg class="banner-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+            />
+          </svg>
+          <div class="rotator-text">
+            <span class="rotator-item"
+              ><strong>Devolução Grátis</strong> em até 30 dias!</span
+            >
+            <span class="rotator-item"
+              ><strong>Até 50% OFF</strong> na nova coleção!</span
+            >
+            <span class="rotator-item"
+              ><strong>Parcele em até 6x</strong> sem juros!</span
+            >
+            <span class="rotator-item"
+              ><strong>Cupom LUMINA10</strong> para a 1ª compra!</span
+            >
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Menu de Navegação Secundária / Categorias -->
-    <nav class="menu nav-principal nav-rodape" aria-label="Navegação principal">
-      <div class="container menu__conteudo">
-        <ul class="menu__lista">
-          <li class="menu__item"><a class="menu__link btn-category sparkle-btn" href="{{ url_for('inicio') }}">Início</a></li>
-          <li class="menu__item"><a class="menu__link btn-category sparkle-btn" href="{{ url_for('inicio') }}#sobre-nos">Sobre nós</a></li>
-          <li class="menu__item"><a class="menu__link btn-category sparkle-btn" href="{{ url_for('produtos_pagina') }}">Produtos</a></li>
-          <li class="menu__item"><a class="menu__link btn-category sparkle-btn" href="{{ url_for('consultar_pedidos') }}">Histórico de Compras</a></li>
-          <li class="menu__item"><a class="menu__link btn-category sparkle-btn" href="{{ url_for('contato') }}">Contato</a></li>
-        </ul>
-      </div>
-    </nav>
-  </header>
+    <!-- Cabeçalho Principal -->
+    <header class="header-principal">
+      <div class="header-container">
+        <a href="{{ url_for('inicio') }}" class="logo-link">
+          <img
+            src="{{ url_for('static', filename='img/Lumina.webp') }}"
+            alt="Logotipo Lumina"
+            width="300"
+            class="logo-flutuante"
+          />
+        </a>
 
-  <!-- Conteúdo Principal do Formulário de Cadastro -->
-  <main class="container container--restrito">
-    <header class="pagina-cadastro__cabecalho" style="margin-top: 24px; text-align: center;">
-      <h1 class="pagina-cadastro__titulo">Cadastro Lumina</h1>
-      <p class="pagina-cadastro__subtitulo">
-        Antes de iniciar suas compras conosco faça o seu cadastro.
-      </p>
+        <!-- Menu de Navegação e Barra de Ações -->
+        <nav class="nav-principal" aria-label="Navegação principal">
+          <div class="nav-header-container">
+            <!-- Caixa de Pesquisa -->
+            <div class="search-container">
+              <form
+                class="search-box"
+                action="{{ url_for('produtos_pagina') }}"
+                method="GET"
+                role="search"
+              >
+                <label for="search-input" class="sr-only">Buscar produtos</label>
+                <input
+                  type="search"
+                  id="search-input"
+                  name="q"
+                  class="search-input"
+                  placeholder="Buscar produtos, marcas, tendências..."
+                  required
+                />
+                <button
+                  type="submit"
+                  class="search-button sparkle-btn"
+                  aria-label="Pesquisar"
+                >
+                  <svg
+                    class="search-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                </button>
+              </form>
+            </div>
+
+            <!-- Ações do Usuário -->
+            <div class="user-actions">
+              <a
+                href="{{ url_for('provador') }}"
+                class="btn-profile sparkle-btn"
+                aria-label="Provador Virtual"
+              >
+                <svg
+                  class="action-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M20.38 3.46L16 2a4 4 0 0 0-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path>
+                </svg>
+                <span>Provador Virtual</span>
+              </a>
+
+              <a
+                href="{{ url_for('perfil') }}"
+                class="btn-profile sparkle-btn"
+                aria-label="Meu Perfil"
+              >
+                <svg
+                  class="action-icon user-silhouette"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+                  />
+                </svg>
+                <span>Perfil</span>
+              </a>
+
+              <a
+                href="{{ url_for('consultar_pedidos') }}"
+                class="btn-profile sparkle-btn"
+                aria-label="Consultar Pedidos"
+                title="Consultar Pedidos"
+              >
+                <svg
+                  class="action-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                  ></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+                <span>Pedidos</span>
+              </a>
+
+              <a
+                href="{{ url_for('carrinho') }}"
+                class="btn-cart sparkle-btn"
+                aria-label="Carrinho de Compras com {{ session.get('carrinho', [])|length }} itens"
+              >
+                <svg
+                  class="action-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="9" cy="21" r="1"></circle>
+                  <circle cx="20" cy="21" r="1"></circle>
+                  <path
+                    d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+                  ></path>
+                </svg>
+                <span class="cart-count"
+                  >{{ session.get('carrinho', [])|length }}</span
+                >
+              </a>
+            </div>
+          </div>
+        </nav>
+      </div>
     </header>
 
-    {% if erro %}
-    <div class="alerta alerta--erro" role="alert" style="margin: 16px 0;">
-      <strong class="alerta__destaque">Erro:</strong> {{ erro }}
+    <!-- Categorias do Menu Centralizadas -->
+    <nav class="nav-categorias" aria-label="Categorias de produtos" style="display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <a href="{{ url_for('produtos_pagina', categoria='ofertas') }}" class="btn-category sparkle-btn">Ofertas</a>
+      <a href="{{ url_for('produtos_pagina', categoria='trending') }}" class="btn-category sparkle-btn">Trending</a>
+      <a href="{{ url_for('produtos_pagina', categoria='esportivo') }}" class="btn-category sparkle-btn">Esportivo</a>
+      <a href="{{ url_for('produtos_pagina', categoria='feminino') }}" class="btn-category sparkle-btn">Feminino</a>
+      <a href="{{ url_for('produtos_pagina', categoria='infantil') }}" class="btn-category sparkle-btn">Moda Infantil</a>
+      <a href="{{ url_for('produtos_pagina', categoria='novidades') }}" class="btn-category sparkle-btn">Novidades</a>
+    </nav>
+
+    <!-- Banner Destaque de Tendências -->
+    <section class="banner-tendencias" aria-label="Destaque Tendências">
+      <img
+        src="{{ url_for('static', filename='img/tendencias.webp') }}"
+        alt="Tendências Lumina"
+        width="300"
+        class="banner-imagem"
+      />
+    </section>
+
+    <!-- Conteúdo Principal da Loja -->
+    <main class="container">
+      <section class="grid" id="produtos" aria-label="Produtos em destaque">
+        <!-- Produto 1 -->
+        <article class="card">
+          <a href="{{ url_for('produtos_pagina') }}" class="card-link">
+            <div class="card-imagem-container">
+              <img
+                src="{{ url_for('static', filename='img/cardicam_amarela.webp') }}"
+                alt="Cardigan Amarelo Frente"
+                class="foto-principal"
+              />
+              <img
+                src="{{ url_for('static', filename='img/blusa amarela tras.webp') }}"
+                alt="Cardigan Amarelo Costas"
+                class="foto-hover"
+              />
+            </div>
+          </a>
+          <div class="card-content">
+            <h2>Cardigan em Tricô Canelado com Renda</h2>
+            <p class="preco">R$ 70,00</p>
+
+            <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
+              <input type="hidden" name="nome" value="Cardigan em Tricô Canelado com Renda" />
+              <input type="hidden" name="preco" value="70.00" />
+              <input type="hidden" name="imagem" value="{{ url_for('static', filename='img/cardicam_amarela.webp') }}" />
+              <input type="hidden" name="tamanho" value="Único" />
+              <input type="hidden" name="cor" value="Amarelo" />
+              <button type="submit" class="btn btn--primario btn--bloco sparkle-btn">
+                Adicionar ao Carrinho
+              </button>
+            </form>
+          </div>
+        </article>
+
+        <!-- Produto 2 -->
+        <article class="card">
+          <a href="{{ url_for('produtos_pagina') }}" class="card-link">
+            <div class="card-imagem-container">
+              <img
+                src="{{ url_for('static', filename='img/vestido_roxo.webp') }}"
+                alt="Vestido Roxo Frente"
+                class="foto-principal"
+              />
+              <img
+                src="{{ url_for('static', filename='img/vestido_roxo_tras.webp') }}"
+                alt="Vestido Roxo Costas"
+                class="foto-hover"
+              />
+            </div>
+          </a>
+          <div class="card-content">
+            <h2>Vestido Frente Única Roxo Curto</h2>
+            <p class="preco">R$ 150,00</p>
+
+            <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
+              <input type="hidden" name="nome" value="Vestido Frente Única Roxo Curto" />
+              <input type="hidden" name="preco" value="150.00" />
+              <input type="hidden" name="imagem" value="{{ url_for('static', filename='img/vestido_roxo.webp') }}" />
+              <input type="hidden" name="tamanho" value="P" />
+              <input type="hidden" name="cor" value="Roxo" />
+              <button type="submit" class="btn btn--primario btn--bloco sparkle-btn">
+                Adicionar ao Carrinho
+              </button>
+            </form>
+          </div>
+        </article>
+
+        <!-- Produto 3 -->
+        <article class="card">
+          <a href="{{ url_for('produtos_pagina') }}" class="card-link">
+            <div class="card-imagem-container">
+              <img
+                src="{{ url_for('static', filename='img/camisa_branca_estampada.webp') }}"
+                alt="Camisa Branca Estampada Frente"
+                class="foto-principal"
+              />
+              <img
+                src="{{ url_for('static', filename='img/camisa_estanpada_tras.webp') }}"
+                alt="Camisa Branca Estampada Costas"
+                class="foto-hover"
+              />
+            </div>
+          </a>
+          <div class="card-content">
+            <h2>Camisa Branca Estampada</h2>
+            <p class="preco">R$ 90,00</p>
+
+            <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
+              <input type="hidden" name="nome" value="Camisa Branca Estampada" />
+              <input type="hidden" name="preco" value="90.00" />
+              <input type="hidden" name="imagem" value="{{ url_for('static', filename='img/camisa_branca_estampada.webp') }}" />
+              <input type="hidden" name="tamanho" value="M" />
+              <input type="hidden" name="cor" value="Branco" />
+              <button type="submit" class="btn btn--primario btn--bloco sparkle-btn">
+                Adicionar ao Carrinho
+              </button>
+            </form>
+          </div>
+        </article>
+
+        <!-- Produto 4 -->
+        <article class="card">
+          <a href="{{ url_for('produtos_pagina') }}" class="card-link">
+            <div class="card-imagem-container">
+              <img
+                src="{{ url_for('static', filename='img/calça_baggy.webp') }}"
+                alt="Calça Baggy Frente"
+                class="foto-principal"
+              />
+              <img
+                src="{{ url_for('static', filename='img/calça_baggy_tras.webp') }}"
+                alt="Calça Baggy Costas"
+                class="foto-hover"
+              />
+            </div>
+          </a>
+          <div class="card-content">
+            <h2>Calça Baggy</h2>
+            <p class="preco">R$ 150,00</p>
+
+            <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
+              <input type="hidden" name="nome" value="Calça Baggy" />
+              <input type="hidden" name="preco" value="150.00" />
+              <input type="hidden" name="imagem" value="{{ url_for('static', filename='img/calça_baggy.webp') }}" />
+              <input type="hidden" name="tamanho" value="38" />
+              <input type="hidden" name="cor" value="Jeans" />
+              <button type="submit" class="btn btn--primario btn--bloco sparkle-btn">
+                Adicionar ao Carrinho
+              </button>
+            </form>
+          </div>
+        </article>
+
+        <!-- Produto 5 -->
+        <article class="card">
+          <a href="{{ url_for('produtos_pagina') }}" class="card-link">
+            <div class="card-imagem-container">
+              <img
+                src="{{ url_for('static', filename='img/camisa_preta.webp') }}"
+                alt="Camisa Preta Masculina Frente"
+                class="foto-principal"
+              />
+              <img
+                src="{{ url_for('static', filename='img/camisa preta tras.webp') }}"
+                alt="Camisa Preta Masculina Costas"
+                class="foto-hover"
+              />
+            </div>
+          </a>
+          <div class="card-content">
+            <h2>Camisa Preta Masculina</h2>
+            <p class="preco">R$ 150,00</p>
+
+            <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
+              <input type="hidden" name="nome" value="Camisa Preta Masculina" />
+              <input type="hidden" name="preco" value="150.00" />
+              <input type="hidden" name="imagem" value="{{ url_for('static', filename='img/camisa_preta.webp') }}" />
+              <input type="hidden" name="tamanho" value="M" />
+              <input type="hidden" name="cor" value="Preto" />
+              <button type="submit" class="btn btn--primario btn--bloco sparkle-btn">
+                Adicionar ao Carrinho
+              </button>
+            </form>
+          </div>
+        </article>
+
+        <!-- Produto 6 -->
+        <article class="card">
+          <a href="{{ url_for('produtos_pagina') }}" class="card-link">
+            <div class="card-imagem-container">
+              <img
+                src="{{ url_for('static', filename='img/blusa preta.webp') }}"
+                alt="Blusa Preta Manga Longa Frente"
+                class="foto-principal"
+              />
+              <img
+                src="{{ url_for('static', filename='img/blusa preta tras.webp') }}"
+                alt="Blusa Preta Manga Longa Costas"
+                class="foto-hover"
+              />
+            </div>
+          </a>
+          <div class="card-content">
+            <h2>Blusa Preta Manga Longa</h2>
+            <p class="preco">R$ 150,00</p>
+
+            <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
+              <input type="hidden" name="nome" value="Blusa Preta Manga Longa" />
+              <input type="hidden" name="preco" value="150.00" />
+              <input type="hidden" name="imagem" value="{{ url_for('static', filename='img/blusa preta.webp') }}" />
+              <input type="hidden" name="tamanho" value="M" />
+              <input type="hidden" name="cor" value="Preto" />
+              <button type="submit" class="btn btn--primario btn--bloco sparkle-btn">
+                Adicionar ao Carrinho
+              </button>
+            </form>
+          </div>
+        </article>
+
+        <!-- Produto 7 -->
+        <article class="card">
+          <a href="{{ url_for('produtos_pagina') }}" class="card-link">
+            <div class="card-imagem-container">
+              <img
+                src="{{ url_for('static', filename='img/jaqueta jeans.webp') }}"
+                alt="Jaqueta Jeans Frente"
+                class="foto-principal"
+              />
+              <img
+                src="{{ url_for('static', filename='img/jaqueta_jeans_tras.webp') }}"
+                alt="Jaqueta Jeans Costas"
+                class="foto-hover"
+              />
+            </div>
+          </a>
+          <div class="card-content">
+            <h2>Jaqueta Jeans</h2>
+            <p class="preco">R$ 180,00</p>
+
+            <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
+              <input type="hidden" name="nome" value="Jaqueta Jeans" />
+              <input type="hidden" name="preco" value="180.00" />
+              <input type="hidden" name="imagem" value="{{ url_for('static', filename='img/jaqueta jeans.webp') }}" />
+              <input type="hidden" name="tamanho" value="M" />
+              <input type="hidden" name="cor" value="Jeans" />
+              <button type="submit" class="btn btn--primario btn--bloco sparkle-btn">
+                Adicionar ao Carrinho
+              </button>
+            </form>
+          </div>
+        </article>
+
+        <!-- Produto 8 -->
+        <article class="card">
+          <a href="{{ url_for('produtos_pagina') }}" class="card-link">
+            <div class="card-imagem-container">
+              <img
+                src="{{ url_for('static', filename='img/camisa_social.webp') }}"
+                alt="Camisa Social Frente"
+                class="foto-principal"
+              />
+              <img
+                src="{{ url_for('static', filename='img/camisa_socia_ tras.webp') }}"
+                alt="Camisa Social Costas"
+                class="foto-hover"
+              />
+            </div>
+          </a>
+          <div class="card-content">
+            <h2>Camisa Social</h2>
+            <p class="preco">R$ 150,00</p>
+
+            <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
+              <input type="hidden" name="nome" value="Camisa Social" />
+              <input type="hidden" name="preco" value="150.00" />
+              <input type="hidden" name="imagem" value="{{ url_for('static', filename='img/camisa_social.webp') }}" />
+              <input type="hidden" name="tamanho" value="M" />
+              <input type="hidden" name="cor" value="Amarelo" />
+              <button type="submit" class="btn btn--primario btn--bloco sparkle-btn">
+                Adicionar ao Carrinho
+              </button>
+            </form>
+          </div>
+        </article>
+
+        <!-- Produto 9 -->
+        <article class="card">
+          <a href="{{ url_for('produtos_pagina') }}" class="card-link">
+            <div class="card-imagem-container">
+              <img
+                src="{{ url_for('static', filename='img/calça_jeans.webp') }}"
+                alt="Calça Jeans Frente"
+                class="foto-principal"
+              />
+              <img
+                src="{{ url_for('static', filename='img/calça_jeans_tras.webp') }}"
+                alt="Calça Jeans Costas"
+                class="foto-hover"
+              />
+            </div>
+          </a>
+          <div class="card-content">
+            <h2>Calça Jeans</h2>
+            <p class="preco">R$ 150,00</p>
+
+            <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
+              <input type="hidden" name="nome" value="Calça Jeans" />
+              <input type="hidden" name="preco" value="150.00" />
+              <input type="hidden" name="imagem" value="{{ url_for('static', filename='img/calça_jeans.webp') }}" />
+              <input type="hidden" name="tamanho" value="38" />
+              <input type="hidden" name="cor" value="Jeans" />
+              <button type="submit" class="btn btn--primario btn--bloco sparkle-btn">
+                Adicionar ao Carrinho
+              </button>
+            </form>
+          </div>
+        </article>
+      </section>
+
+      <!-- Seção Sobre Nós -->
+      <section id="sobre" class="secao-sobre">
+        <h2>Sobre a Lumina</h2>
+        <p>
+          Nossa missão é trazer peças de qualidade e design atemporal para
+          tornar o seu dia a dia mais prático, elegante e autêntico.
+        </p>
+      </section>
+    </main>
+
+    <!-- Botões Flutuantes -->
+    <div class="floating-buttons">
+      <a href="#sobre" class="btn-floating sparkle-btn" aria-label="Sobre nós">
+        <svg
+          class="action-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        <span>Sobre nós</span>
+      </a>
+
+      <a
+        href="{{ url_for('contato') }}"
+        class="btn-floating sparkle-btn"
+        aria-label="Contatos"
+      >
+        <svg
+          class="action-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path
+            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+          ></path>
+        </svg>
+        <span>Contatos</span>
+      </a>
     </div>
-    {% endif %}
 
-    {% if sucesso %}
-    <div class="alerta alerta--sucesso" role="alert" style="margin: 16px 0;">
-      <strong class="alerta__destaque">Sucesso:</strong> {{ sucesso }}
-    </div>
-    {% endif %}
-
-    <form class="formulario" action="{{ url_for('salvar') }}" method="POST">
-      <div class="formulario__grupo">
-        <label class="formulario__label" for="nome">Nome completo:</label>
-        <input
-          class="formulario__input"
-          type="text"
-          id="nome"
-          name="nome"
-          placeholder="Digite seu nome completo"
-          minlength="3"
-          maxlength="100"
-          pattern="[A-Za-zÀ-üãõÃÕçÇ\s]+"
-          title="Digite apenas letras e espaços."
-          autocomplete="name"
-          value="{{ valores.get('nome', '') if valores else '' }}"
-          required
-        />
-      </div>
-
-      <div class="formulario__grupo">
-        <label class="formulario__label" for="email">E-mail:</label>
-        <input
-          class="formulario__input"
-          type="email"
-          id="email"
-          name="email"
-          placeholder="seuemail@exemplo.com"
-          maxlength="120"
-          autocomplete="email"
-          value="{{ valores.get('email', '') if valores else '' }}"
-          required
-        />
-      </div>
-
-      <div class="formulario__grupo">
-        <label class="formulario__label" for="telefone">Telefone:</label>
-        <input
-          class="formulario__input"
-          type="tel"
-          id="telefone"
-          name="telefone"
-          placeholder="(11) 94002-8922"
-          maxlength="20"
-          autocomplete="tel"
-          value="{{ valores.get('telefone', '') if valores else '' }}"
-          required
-        />
-      </div>
-
-      <div class="formulario__grupo">
-        <label class="formulario__label" for="senha">Senha:</label>
-        <input
-          class="formulario__input"
-          type="password"
-          id="senha"
-          name="senha"
-          placeholder="Digite sua senha"
-          minlength="8"
-          maxlength="120"
-          autocomplete="new-password"
-          required
-        />
-      </div>
-
-      <div class="formulario__acoes">
-        <button class="btn btn--primario btn--bloco" type="submit">
-          Salvar Perfil
-        </button>
-      </div>
-    </form>
-
-    <div class="pagina-cadastro__rodape" style="margin-top: 24px; text-align: center">
-      <a href="{{ url_for('inicio') }}">Voltar para a página inicial</a>
-      <span style="margin: 0 8px">|</span>
-      <a href="{{ url_for('listar_usuarios') }}">Ver usuários cadastrados</a>
-    </div>
-  </main>
-
-  <!-- Rodapé -->
-  <footer class="rodape">
-    <div class="container rodape__conteudo">
-      <p>&copy; 2026 <strong>LUMINA</strong>. Todos os direitos reservados.</p>
-      <p style="font-size: 0.8rem; margin-top: 6px; opacity: 0.8;">Entrega para todo o Brasil • Compra Segura</p>
-    </div>
-  </footer>
-
-</body>
-
+    <!-- Rodapé -->
+    <footer id="contato">
+      <p>&copy; 2026 Lumina. Todos os direitos reservados.</p>
+    </footer>
+  </body>
 </html>
