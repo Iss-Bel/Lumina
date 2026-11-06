@@ -330,3 +330,97 @@ document.addEventListener("DOMContentLoaded", function () {
     alternarMetodo(radioInicial.value);
   }
 });
+
+/* ============================================================
+   LÓGICA DA PÁGINA DE PRODUTO: ZOOM & GALERIA
+   ============================================================ */
+
+document.addEventListener("DOMContentLoaded", function () {
+  const container = document.getElementById("zoomContainer");
+  const img = document.getElementById("imagemPrincipal");
+
+  if (container && img) {
+    // Efeito de Lupa no Cursor (Hover Zoom)
+    container.addEventListener("mousemove", function (e) {
+      const rect = container.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      img.style.transformOrigin = `${x}% ${y}%`;
+      img.style.transform = "scale(2.2)";
+    });
+
+    container.addEventListener("mouseleave", function () {
+      img.style.transformOrigin = "center center";
+      img.style.transform = "scale(1)";
+    });
+  }
+});
+
+// Alternar entre imagens miniaturas
+function trocarImagemPrincipal(thumb) {
+  document.querySelectorAll(".miniatura-thumb").forEach(function (t) {
+    t.classList.remove("ativa");
+  });
+  thumb.classList.add("ativa");
+
+  const imgPrincipal = document.getElementById("imagemPrincipal");
+  if (imgPrincipal) {
+    imgPrincipal.src = thumb.src;
+  }
+
+  const formInput = document.getElementById("formImagemInput");
+  if (formInput) {
+    formInput.value = thumb.src;
+  }
+}
+
+// Seleção de tamanho no formulário
+function selecionarTamanho(btn, tamanho) {
+  document.querySelectorAll(".btn-tam").forEach(function (b) {
+    b.classList.remove("ativo");
+  });
+  btn.classList.add("ativo");
+
+  const inputTamanho = document.getElementById("tamanhoSelecionado");
+  if (inputTamanho) {
+    inputTamanho.value = tamanho;
+  }
+}
+
+// Controlo do Modal de Visualização de Perto em Ecrã Inteiro
+let nivelZoomModal = 1.5;
+
+function abrirModalZoom() {
+  const modal = document.getElementById("modalZoom");
+  const imgModal = document.getElementById("imagemModal");
+  const imgPrincipal = document.getElementById("imagemPrincipal");
+
+  if (modal && imgModal && imgPrincipal) {
+    imgModal.src = imgPrincipal.src;
+    modal.classList.add("ativo");
+    resetarZoom();
+  }
+}
+
+function fecharModalZoom() {
+  const modal = document.getElementById("modalZoom");
+  if (modal) {
+    modal.classList.remove("ativo");
+  }
+}
+
+function alterarZoom(fator) {
+  const imgModal = document.getElementById("imagemModal");
+  if (imgModal) {
+    nivelZoomModal = Math.min(Math.max(nivelZoomModal + fator, 1), 3.5);
+    imgModal.style.transform = `scale(${nivelZoomModal})`;
+  }
+}
+
+function resetarZoom() {
+  const imgModal = document.getElementById("imagemModal");
+  if (imgModal) {
+    nivelZoomModal = 1.5;
+    imgModal.style.transform = `scale(${nivelZoomModal})`;
+  }
+}
