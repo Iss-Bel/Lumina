@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ produto.nome if produto else 'Detalhes do Produto' }} | Lumina</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <style>
+      .preco-de-por {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 15px 0 6px;
+      }
+      .preco-antigo {
+        font-size: 1rem;
+        color: #888888;
+        text-decoration: line-through;
+      }
+      .preco-atual {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #301b10;
+      }
+      .desconto-tag {
+        background-color: #e74c3c;
+        color: #ffffff;
+        font-size: 0.8rem;
+        font-weight: bold;
+        padding: 3px 7px;
+        border-radius: 4px;
+      }
+      .parcelamento {
+        font-size: 0.95rem;
+        color: #555555;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Barra Superior Promocional -->
+    <div class="top-banner">
+      <div class="top-banner-container">
+        <div class="banner-item">
+          <strong>Seja um Parceiro Lumina</strong>
+          <a href="{{ url_for('cadastro') }}" class="banner-link">Cadastre-se agora</a>
+        </div>
+        <span class="banner-divider">|</span>
+        <div class="banner-item">
+          <strong>Frete Grátis</strong>
+          <a href="#" class="banner-link">Veja condições</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cabeçalho Principal -->
+    <header class="header-principal">
+      <div class="header-container">
+        <div class="logo-box">
+          <a href="{{ url_for('inicio') }}" class="logo-link">
+            <img
+              src="{{ url_for('static', filename='img/Lumina.webp') }}"
+              alt="Logotipo Lumina"
+              class="logo-principal-unica"
+            />
+          </a>
+        </div>
+
+        <div class="header-direita-box">
+          <form action="{{ url_for('produtos_pagina') }}" method="GET" class="search-form-header">
+            <div class="search-input-wrapper">
+              <input
+                type="text"
+                name="q"
+                class="search-input-field"
+                placeholder="Buscar produtos, marcas, tendências..."
+                value="{{ busca if busca else '' }}"
+              />
+              <button type="submit" class="search-btn-icon" aria-label="Buscar">🔍</button>
+            </div>
+          </form>
+
+          <div class="user-actions">
+            <a href="{{ url_for('provador') }}" class="btn-header-pill"><span>PROVADOR VIRTUAL</span></a>
+            <a href="{{ url_for('perfil') }}" class="btn-header-pill"><span>PERFIL</span></a>
+            <a href="{{ url_for('consultar_pedidos') }}" class="btn-header-pill"><span>PEDIDOS</span></a>
+            <a href="{{ url_for('carrinho') }}" class="btn-cart-circle" title="Carrinho de Compras">
+              🛒 <span class="cart-count-badge">{{ session.get('carrinho', [])|length }}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="nav-categorias">
+      <a href="{{ url_for('produtos_pagina') }}" class="btn-category">VER TODOS OS PRODUTOS</a>
+      <a href="{{ url_for('produtos_pagina', categoria='Feminino') }}" class="btn-category">FEMININO</a>
+      <a href="{{ url_for('produtos_pagina', categoria='Masculino') }}" class="btn-category">MASCULINO</a>
+      <a href="{{ url_for('produtos_pagina', categoria='Unissex') }}" class="btn-category">UNISSEX</a>
+      <a href="{{ url_for('provador') }}" class="btn-category">PROVADOR VIRTUAL</a>
+    </nav>
+
+    <!-- Conteúdo Principal de Detalhes do Produto -->
+    <main class="container">
+      <div class="produto-detalhes-grid">
+        <!-- Galeria de Imagens -->
+        <div class="galeria-container">
+          <div class="miniaturas-coluna">
+            <img
+              src="{{ url_for('static', filename=produto.imagem) }}"
+              alt="Vista Frontal"
+              class="miniatura-thumb ativa"
+              onclick="trocarImagemPrincipal(this)"
+            />
+            {% if produto and produto.imagem_costas %}
+            <img
+              src="{{ url_for('static', filename=produto.imagem_costas) }}"
+              alt="Vista Traseira"
+              class="miniatura-thumb"
+              onclick="trocarImagemPrincipal(this)"
+            />
+            {% endif %}
+          </div>
+
+          <div class="imagem-zoom-container" id="zoomContainer">
+            <button type="button" class="btn-ver-perto" onclick="abrirModalZoom()">
+              🔍 Ampliar De Perto
+            </button>
+            <img
+              id="imagemPrincipal"
+              src="{{ url_for('static', filename=produto.imagem) }}"
+              alt="{{ produto.nome if produto else 'Produto Lumina' }}"
+            />
+          </div>
+        </div>
+
+        <!-- Informações e Seleção -->
+        <div class="detalhes-produto-info">
+          <div class="produto-header-info">
+            <div class="avaliacao-badge">★ 4.8 <span>(42 avaliações)</span></div>
+            <h1 class="titulo-produto-detalhe">
+              {{ produto.nome }}
+            </h1>
+            <p class="categoria-tag">
+              CÓDIGO: #{{ produto.id_produto }} | {{ produto.nome_categoria }}
+            </p>
+
+            <div class="preco-de-por">
+              <span class="preco-antigo">R$ {{ "%.2f"|format(produto.preco * 1.15)|replace('.', ',') }}</span>
+              <span class="preco-atual">
+                R$ {{ "%.2f"|format(produto.preco)|replace('.', ',') }}
+              </span>
+              <span class="desconto-tag">-15%</span>
+            </div>
+            <p class="parcelamento">ou até <strong>6x de R$ {{ "%.2f"|format(produto.preco / 6)|replace('.', ',') }} sem juros</strong></p>
+          </div>
+
+          <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
+            <input type="hidden" name="nome" value="{{ produto.nome }}" />
+            <input type="hidden" name="preco" value="{{ produto.preco }}" />
+            <input type="hidden" name="imagem" id="formImagemInput" value="{{ url_for('static', filename=produto.imagem) }}" />
+            <input type="hidden" name="tamanho" id="tamanhoSelecionado" value="M" />
+
+            <div class="grupo-tamanhos">
+              <label class="label-tamanho">Tamanho:</label>
+              <div class="tamanhos-selector">
+                <button type="button" class="btn-tam" onclick="selecionarTamanho(this, 'PP')">PP</button>
+                <button type="button" class="btn-tam" onclick="selecionarTamanho(this, 'P')">P</button>
+                <button type="button" class="btn-tam ativo" onclick="selecionarTamanho(this, 'M')">M</button>
+                <button type="button" class="btn-tam" onclick="selecionarTamanho(this, 'G')">G</button>
+                <button type="button" class="btn-tam" onclick="selecionarTamanho(this, 'GG')">GG</button>
+              </div>
+
+              <!-- Botões de Guia de Medidas e Provador -->
+              <div class="links-guia">
+                <button type="button" class="btn-guia-medidas" onclick="abrirModalMedidas()">
+                  📏 Tabela de Medidas Detalhada
+                </button>
+                <a href="{{ url_for('provador') }}" class="btn-guia-medidas">
+                  👕 Provador Virtual (Descubra o seu tamanho)
+                </a>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn--primario btn--bloco btn-carrinho-destaque">
+              Adicionar ao Carrinho
+            </button>
+          </form>
+
+          <div class="descricao-bloco">
+            <h3>Sobre o produto</h3>
+            <p>{{ produto.descricao }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Seção: Outros Produtos da Coleção -->
+      <section class="produtos-relacionados" style="margin-top: 60px;">
+        <h2 style="text-align: center; margin-bottom: 30px; font-size: 24px;">Outros Produtos da Coleção</h2>
+        
+        <div class="grid">
+          {% if outros_produtos %}
+            {% for prod in outros_produtos %}
+            <article class="card">
+              <a href="{{ url_for('produto_detalhes', id_produto=prod.id_produto) }}" class="card-link">
+                <div class="card-imagem-container">
+                  <img
+                    src="{{ url_for('static', filename=prod.imagem) }}"
+                    alt="{{ prod.nome }}"
+                    class="foto-principal"
+                  />
+                  {% if prod.imagem_costas %}
+                  <img
+                    src="{{ url_for('static', filename=prod.imagem_costas) }}"
+                    alt="{{ prod.nome }} - Costas"
+                    class="foto-hover"
+                  />
+                  {% endif %}
+                </div>
+              </a>
+              <div class="card-content">
+                <h2>{{ prod.nome }}</h2>
+                <p class="preco">R$ {{ "%.2f"|format(prod.preco)|replace('.', ',') }}</p>
+
+                <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
+                  <input type="hidden" name="nome" value="{{ prod.nome }}" />
+                  <input type="hidden" name="preco" value="{{ prod.preco }}" />
+                  <input type="hidden" name="imagem" value="{{ url_for('static', filename=prod.imagem) }}" />
+                  <input type="hidden" name="tamanho" value="M" />
+                  <button type="submit" class="btn btn--primario btn--bloco sparkle-btn" style="margin-top: 10px;">
+                    Adicionar ao Carrinho
+                  </button>
+                </form>
+              </div>
+            </article>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <div style="text-align: center; margin-top: 35px;">
+          <a href="{{ url_for('produtos_pagina') }}" class="btn btn--primario sparkle-btn" style="display: inline-block; padding: 12px 28px; text-decoration: none;">
+            Ver Todos os Produtos
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal da Tabela de Medidas -->
+    <div class="modal-medidas" id="modalMedidas">
+      <div class="modal-medidas-conteudo">
+        <button class="btn-fechar-medidas" onclick="fecharModalMedidas()">&times;</button>
+        <h2>📏 Guia de Tamanhos e Medidas Corporais (cm)</h2>
+        <p style="font-size: 14px; color: #666; margin-top: 4px;">Utilize uma fita métrica para consultar as suas medidas corporais abaixo:</p>
+        
+        <table class="tabela-medidas">
+          <thead>
+            <tr>
+              <th>Tamanho</th>
+              <th>Tórax / Busto</th>
+              <th>Cintura</th>
+              <th>Quadril</th>
+              <th>Comprimento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>PP</strong></td>
+              <td>80 - 84 cm</td>
+              <td>62 - 66 cm</td>
+              <td>88 - 92 cm</td>
+              <td>64 cm</td>
+            </tr>
+            <tr>
+              <td><strong>P</strong></td>
+              <td>85 - 90 cm</td>
+              <td>67 - 72 cm</td>
+              <td>93 - 98 cm</td>
+              <td>66 cm</td>
+            </tr>
+            <tr class="destaque-tamanho">
+              <td><strong>M (Padrão)</strong></td>
+              <td>91 - 96 cm</td>
+              <td>73 - 78 cm</td>
+              <td>99 - 104 cm</td>
+              <td>68 cm</td>
+            </tr>
+            <tr>
+              <td><strong>G</strong></td>
+              <td>97 - 104 cm</td>
+              <td>79 - 86 cm</td>
+              <td>105 - 112 cm</td>
+              <td>70 cm</td>
+            </tr>
+            <tr>
+              <td><strong>GG</strong></td>
+              <td>105 - 112 cm</td>
+              <td>87 - 94 cm</td>
+              <td>113 - 120 cm</td>
+              <td>72 cm</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="dica-caimento">
+          💡 <strong>Dica de Caimento:</strong> Se as suas medidas estiverem entre dois tamanhos, recomendamos escolher o maior para um ajuste solto ou o menor para caimento justo.
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para Zoom em Ecrã Inteiro -->
+    <div class="modal-fullscreen" id="modalZoom">
+      <button class="btn-fechar-modal" onclick="fecharModalZoom()">&times;</button>
+      <div class="modal-imagem-wrapper" id="modalWrapper">
+        <img id="imagemModal" src="" alt="Detalhe em alta resolução" />
+      </div>
+      <div class="controles-zoom">
+        <button class="btn-zoom-action" onclick="alterarZoom(0.25)">+ Zoom</button>
+        <button class="btn-zoom-action" onclick="alterarZoom(-0.25)">- Zoom</button>
+        <button class="btn-zoom-action" onclick="resetarZoom()">Resetar</button>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Lumina. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>
