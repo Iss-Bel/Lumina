@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
-# Configuração da chave secreta para manter a sessão no navegador
+# Chave secreta para controlo de sessões
 app.secret_key = os.getenv("SECRET_KEY", "chave_secreta_lumina_2026")
 
 
@@ -34,6 +34,18 @@ CAMPOS_PROVADOR = {
     "busto": (65, 140),
     "cintura": (50, 130),
     "quadril": (70, 150)
+}
+
+PRODUTOS_MOCK = {
+    1: {"nome": "Cardigan em Tricô Canelado com Renda", "preco": 70.00, "imagem": "img/cardicam_amarela.webp", "imagem_costas": "img/blusa amarela tras.webp", "nome_categoria": "Feminino", "descricao": "Cardigan macio em tricô canelado com acabamento delicado em renda nas bordas."},
+    2: {"nome": "Vestido Frente Única Roxo Curto", "preco": 150.00, "imagem": "img/vestido_roxo.webp", "imagem_costas": "img/vestido_roxo_tras.webp", "nome_categoria": "Feminino", "descricao": "Vestido curto com decote frente única e caimento leve."},
+    3: {"nome": "Camisa Branca Estampada", "preco": 90.00, "imagem": "img/camisa_branca_estampada.webp", "imagem_costas": "img/camisa_estanpada_tras.webp", "nome_categoria": "Unissex", "descricao": "Camisa de botão casual em tecido leve de algodão com estampa moderna."},
+    4: {"nome": "Calça Baggy Unissex", "preco": 150.00, "imagem": "img/calça_baggy.webp", "imagem_costas": "img/calça_baggy_tras.webp", "nome_categoria": "Unissex", "descricao": "Calça jeans modelagem baggy com cintura média e corte amplo nas pernas."},
+    5: {"nome": "Camisa Preta Masculina", "preco": 150.00, "imagem": "img/camisa_preta.webp", "imagem_costas": "img/camisa preta tras.webp", "nome_categoria": "Masculino", "descricao": "Camisa social esporte em tom preto fosco, confeccionada com caimento slim fit."},
+    6: {"nome": "Blusa Preta Manga Longa", "preco": 150.00, "imagem": "img/blusa preta.webp", "imagem_costas": "img/blusa preta tras.webp", "nome_categoria": "Unissex", "descricao": "Blusa básica de manga longa em malha premium."},
+    7: {"nome": "Jaqueta Jeans", "preco": 180.00, "imagem": "img/jaqueta jeans.webp", "imagem_costas": "img/jaqueta_jeans_tras.webp", "nome_categoria": "Feminino", "descricao": "Jaqueta feminina overshirt confeccionada em jeans encorpado de algodão."},
+    8: {"nome": "Camisa Social", "preco": 150.00, "imagem": "img/camisa_social.webp", "imagem_costas": "img/camisa_socia_ tras.webp", "nome_categoria": "Masculino", "descricao": "Camisa social de manga longa em tom suave."},
+    9: {"nome": "Calça Jeans Feminina", "preco": 150.00, "imagem": "img/calça_jeans.webp", "imagem_costas": "img/calça_jeans.webp", "nome_categoria": "Feminino", "descricao": "Calça jeans feminina com lavagem clássica e caimento ajustado ao corpo."}
 }
 
 
@@ -72,7 +84,6 @@ def analisar_caimento(medidas):
 
     for parte, valor in medidas.items():
         minimo, maximo = faixas_sugeridas[parte]
-        
         if valor < minimo:
             detalhes.append((parte.capitalize(), "um pouco folgado/largo"))
             status_linhas[parte] = "folgado"
@@ -87,7 +98,7 @@ def analisar_caimento(medidas):
 
 
 # ==========================================
-# CONEXÃO COM O BANCO DE DADOS
+# CONEXÃO COM A BASE DE DADOS
 # ==========================================
 
 def conectar_mysql():
@@ -102,22 +113,18 @@ def conectar_mysql():
             cursorclass=pymysql.cursors.DictCursor
         )
     except pymysql.MySQLError as erro_conexao:
-        print(f"Erro de conexão ao MySQL: {erro_conexao}")
+        print(f"Erro de conexão com o MySQL: {erro_conexao}")
         return None
 
 
 # ==========================================
-# PÁGINA INICIAL DA LOJA
+# ROTAS DA APLICAÇÃO
 # ==========================================
 
 @app.route("/")
 def inicio():
     return render_template("index.html")
 
-
-# ==========================================
-# PÁGINA EXCLUSIVA DO PROVADOR VIRTUAL
-# ==========================================
 
 @app.route("/provador", methods=["GET", "POST"])
 def provador():
@@ -134,7 +141,7 @@ def provador():
     tamanho = None
     detalhes_caimento = []
     status_linhas = {"busto": "ideal", "cintura": "ideal", "quadril": "ideal"}
-    mensagem = "Preencha suas medidas para descobrir seu tamanho."
+    mensagem = "Preencha as suas medidas para descobrir o seu tamanho."
 
     if request.method == "POST":
         for campo, (minimo, maximo) in CAMPOS_PROVADOR.items():
@@ -173,7 +180,7 @@ def provador():
         "quadril_esq": round((100 - quadril_visual) / 2, 1),
         "quadril_dir": round((100 + quadril_visual) / 2, 1),
         "escala_peso": escala_peso,
-        "altura_manequim": round(290 + (dados["altura"] - 140) * 70 / 70)
+        "altura_manequim": round(290 + (dados["altura"] - 140))
     }
 
     return render_template(
@@ -189,15 +196,10 @@ def provador():
     )
 
 
-# ==========================================
-# PÁGINA DE PRODUTOS E CATEGORIAS
-# ==========================================
-
 @app.route("/produtos")
 @app.route("/produtos/<categoria>")
 def produtos_pagina(categoria=None):
     busca = request.args.get("q", "").strip()
-    
     conexao = conectar_mysql()
     produtos = []
 
@@ -205,7 +207,9 @@ def produtos_pagina(categoria=None):
         try:
             with conexao.cursor() as cursor:
                 sql = """
-                    SELECT p.*, c.nome AS nome_categoria 
+                    SELECT p.*, 
+                           COALESCE(p.id_produto, p.id) AS id_produto, 
+                           c.nome AS nome_categoria 
                     FROM produtos AS p
                     LEFT JOIN categoria AS c ON p.id_categoria = c.id_categoria
                     WHERE 1=1
@@ -217,11 +221,13 @@ def produtos_pagina(categoria=None):
                     parametros.extend([categoria, categoria])
 
                 if busca:
-                    sql += " AND (p.nome LIKE %s)"
-                    parametros.append(f"%{busca}%")
+                    sql += " AND (p.nome LIKE %s OR c.nome LIKE %s)"
+                    parametros.extend([f"%{busca}%", f"%{busca}%"])
 
                 cursor.execute(sql, parametros)
                 produtos = cursor.fetchall()
+                for prod in produtos:
+                    prod["preco"] = float(prod["preco"]) if prod.get("preco") is not None else 0.0
         except pymysql.MySQLError as erro:
             print(f"Erro ao consultar produtos: {erro}")
         finally:
@@ -236,22 +242,89 @@ def produtos_pagina(categoria=None):
 
 
 # ==========================================
-# PÁGINA DE CADASTRO
+# DETALHES DO PRODUTO E VITRINE RELACIONADA
+# ==========================================
+
+@app.route("/produto/<int:id_produto>")
+def produto_detalhes(id_produto):
+    conexao = conectar_mysql()
+    produto = None
+    outros_produtos = []
+
+    if conexao:
+        try:
+            with conexao.cursor() as cursor:
+                sql = """
+                    SELECT p.*, 
+                           COALESCE(p.id_produto, p.id) AS id_produto, 
+                           c.nome AS nome_categoria 
+                    FROM produtos AS p
+                    LEFT JOIN categoria AS c ON p.id_categoria = c.id_categoria
+                    WHERE p.id_produto = %s OR p.id = %s
+                """
+                cursor.execute(sql, (id_produto, id_produto))
+                produto = cursor.fetchone()
+
+                sql_outros = """
+                    SELECT p.*, 
+                           COALESCE(p.id_produto, p.id) AS id_produto, 
+                           c.nome AS nome_categoria 
+                    FROM produtos AS p
+                    LEFT JOIN categoria AS c ON p.id_categoria = c.id_categoria
+                    WHERE p.id_produto != %s OR p.id_produto IS NULL
+                    LIMIT 4
+                """
+                cursor.execute(sql_outros, (id_produto,))
+                outros_produtos = cursor.fetchall()
+
+                for prod in outros_produtos:
+                    prod["preco"] = float(prod["preco"]) if prod.get("preco") is not None else 0.0
+
+        except pymysql.MySQLError as erro:
+            print(f"Erro ao consultar produto no MySQL: {erro}")
+        finally:
+            conexao.close()
+
+    if not produto:
+        dados_base = PRODUTOS_MOCK.get(id_produto, {
+            "nome": f"Produto Exclusivo #{id_produto}",
+            "preco": 199.90,
+            "imagem": "img/jaqueta jeans.webp",
+            "imagem_costas": "img/jaqueta_jeans_tras.webp",
+            "nome_categoria": "Geral",
+            "descricao": "Peça exclusiva da nova coleção Lumina, desenvolvida para proporcionar conforto e sofisticação."
+        })
+        produto = {
+            "id_produto": id_produto,
+            "nome": dados_base["nome"],
+            "preco": dados_base["preco"],
+            "imagem": dados_base["imagem"],
+            "imagem_costas": dados_base.get("imagem_costas"),
+            "nome_categoria": dados_base["nome_categoria"],
+            "descricao": dados_base["descricao"]
+        }
+    else:
+        try:
+            produto["preco"] = float(produto["preco"])
+        except (ValueError, TypeError):
+            produto["preco"] = 0.0
+
+    if not outros_produtos:
+        outros_produtos = [
+            {"id_produto": k, **v} for k, v in PRODUTOS_MOCK.items() if k != id_produto
+        ][:4]
+
+    return render_template("produto.html", produto=produto, outros_produtos=outros_produtos)
+
+
+# ==========================================
+# AUTENTICAÇÃO E PERFIL
 # ==========================================
 
 @app.route("/cadastro")
 def cadastro():
-    return render_template(
-        "forms.html",
-        erro=None,
-        sucesso=request.args.get("sucesso"),
-        valores={}
-    )
+    return render_template("forms.html", erro=None, sucesso=request.args.get("sucesso"), valores={})
 
-
-# ==========================================
-# SALVAR CADASTRO
-# ==========================================
 
 @app.route("/salvar", methods=["POST"])
 def salvar():
@@ -269,7 +342,6 @@ def salvar():
         return render_template("forms.html", erro="Confira o formato do e-mail digitado.", valores=valores), 400
 
     conexao = conectar_mysql()
-
     if not conexao:
         return render_template("forms.html", erro="Servidor de banco de dados indisponível.", valores=valores), 500
 
@@ -286,7 +358,6 @@ def salvar():
             cursor.execute(sql_telefone, (id_usuario, telefone, "CELULAR"))
 
         conexao.commit()
-
         session["usuario_id"] = id_usuario
         session["usuario_nome"] = nome
         session["usuario_email"] = email
@@ -298,7 +369,6 @@ def salvar():
         if conexao:
             conexao.rollback()
 
-        print(f"Erro ao salvar cadastro: {erro}")
         if erro.args and erro.args[0] == 1062:
             mensagem = "Este e-mail já está cadastrado no sistema."
         else:
@@ -311,21 +381,12 @@ def salvar():
             conexao.close()
 
 
-# ==========================================
-# LOGIN E AUTENTICAÇÃO
-# ==========================================
-
 @app.route("/login")
 def login():
     if "usuario_id" in session:
         return redirect(url_for("listar_usuarios"))
 
-    return render_template(
-        "login.html",
-        erro=None,
-        sucesso=request.args.get("sucesso"),
-        email_digitado=""
-    )
+    return render_template("login.html", erro=None, sucesso=request.args.get("sucesso"), email_digitado="")
 
 
 @app.route("/autenticar", methods=["POST"])
@@ -337,7 +398,6 @@ def autenticar():
         return render_template("login.html", erro="Preencha o e-mail e a senha.", email_digitado=email), 400
 
     conexao = conectar_mysql()
-
     if not conexao:
         return render_template("login.html", erro="Servidor de banco de dados indisponível.", email_digitado=email), 500
 
@@ -356,7 +416,7 @@ def autenticar():
                 return render_template("login.html", erro="E-mail ou senha incorretos.", email_digitado=email), 401
 
     except pymysql.MySQLError as erro:
-        print(f"Erro ao autenticar usuário: {erro}")
+        print(f"Erro ao autenticar utilizador: {erro}")
         return render_template("login.html", erro="Erro interno ao tentar autenticar.", email_digitado=email), 500
 
     finally:
@@ -364,13 +424,9 @@ def autenticar():
             conexao.close()
 
 
-# ==========================================
-# PÁGINA DE PERFIL E HISTÓRICO
-# ==========================================
-
 @app.route("/perfil")
 def perfil():
-    if "usuario_id" not in session and "usuario_nome" not in session:
+    if "usuario_id" not in session:
         return redirect(url_for("cadastro"))
 
     conexao = conectar_mysql()
@@ -395,7 +451,7 @@ def perfil():
     if not usuario:
         usuario = {
             "id_usuario": session.get("usuario_id", 1),
-            "nome": session.get("usuario_nome", "Usuário Lumina"),
+            "nome": session.get("usuario_nome", "Utilizador Lumina"),
             "email": session.get("usuario_email", "email@exemplo.com"),
             "telefone": session.get("usuario_telefone", "Não informado")
         }
@@ -421,12 +477,12 @@ def listar_usuarios():
                 cursor.execute(sql)
                 usuarios = cursor.fetchall()
         except pymysql.MySQLError as erro_sql:
-            print(f"Erro ao listar usuários: {erro_sql}")
-            erro = "Erro ao carregar a lista de usuários do banco de dados."
+            print(f"Erro ao listar utilizadores: {erro_sql}")
+            erro = "Erro ao carregar a lista de utilizadores da base de dados."
         finally:
             conexao.close()
     else:
-        erro = "Servidor de banco de dados indisponível."
+        erro = "Servidor de base de dados indisponível."
 
     return render_template("usuarios.html", usuarios=usuarios, erro=erro)
 
@@ -465,13 +521,13 @@ def consultar_pedidos():
         finally:
             conexao.close()
     else:
-        erro = "Não foi possível conectar ao banco de dados."
+        erro = "Não foi possível ligar à base de dados."
 
     return render_template("consultar_pedidos.html", pedidos=pedidos, erro=erro)
 
 
 # ==========================================
-# CARRINHO DE COMPRAS
+# CARRINHO DE COMPRAS E CHECKOUT
 # ==========================================
 
 @app.route("/adicionar-carrinho", methods=["POST"])
@@ -518,7 +574,7 @@ def adicionar_carrinho():
 @app.route("/carrinho")
 def carrinho():
     produtos_carrinho = session.get("carrinho", [])
-    total = sum(item["preco"] * item["quantidade"] for item in produtos_carrinho)
+    total = sum(float(item["preco"]) * int(item["quantidade"]) for item in produtos_carrinho)
     return render_template("carrinho.html", produtos=produtos_carrinho, total=total)
 
 
@@ -526,7 +582,6 @@ def carrinho():
 def atualizar_quantidade():
     index = request.form.get("index", type=int)
     acao = request.form.get("acao")
-
     carrinho_atual = list(session.get("carrinho", []))
 
     if index is not None and 0 <= index < len(carrinho_atual):
@@ -546,7 +601,6 @@ def atualizar_quantidade():
 @app.route("/remover-item/<int:index>")
 def remover_item(index):
     carrinho_atual = list(session.get("carrinho", []))
-
     if 0 <= index < len(carrinho_atual):
         carrinho_atual.pop(index)
         session["carrinho"] = carrinho_atual
@@ -561,17 +615,13 @@ def limpar_carrinho():
     return redirect(url_for("carrinho"))
 
 
-# ==========================================
-# ROTA DE CHECKOUT E CONFIRMAÇÃO DE PAGAMENTO
-# ==========================================
-
 @app.route("/checkout")
 def checkout():
     carrinho_atual = session.get("carrinho", [])
     if not carrinho_atual:
         return redirect(url_for("carrinho"))
 
-    total = sum(item["preco"] * item["quantidade"] for item in carrinho_atual)
+    total = sum(float(item["preco"]) * int(item["quantidade"]) for item in carrinho_atual)
     return render_template("checkout.html", produtos=carrinho_atual, total=total)
 
 
@@ -583,10 +633,6 @@ def confirmar_pagamento():
         sucesso="🎉 Compra realizada com sucesso! O seu pedido já está a ser processado."
     )
 
-
-# ==========================================
-# PÁGINA DE CONTATO
-# ==========================================
 
 @app.route("/contato", methods=["GET", "POST"])
 def contato():
