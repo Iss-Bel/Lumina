@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
-# Chave secreta para controlo de sessões
+# Chave secreta para controle de sessões
 app.secret_key = os.getenv("SECRET_KEY", "chave_secreta_lumina_2026")
 
 
@@ -36,6 +36,7 @@ CAMPOS_PROVADOR = {
     "quadril": (70, 150)
 }
 
+# Mapeamento completo dos 38 produtos da coleção Lumina
 PRODUTOS_MOCK = {
     1: {"nome": "Cardigan em Tricô Canelado com Renda", "preco": 70.00, "imagem": "img/cardicam_amarela.webp", "imagem_costas": "img/blusa amarela tras.webp", "nome_categoria": "Feminino", "descricao": "Cardigan macio em tricô canelado com acabamento delicado em renda nas bordas."},
     2: {"nome": "Vestido Frente Única Roxo Curto", "preco": 150.00, "imagem": "img/vestido_roxo.webp", "imagem_costas": "img/vestido_roxo_tras.webp", "nome_categoria": "Feminino", "descricao": "Vestido curto com decote frente única e caimento leve."},
@@ -45,7 +46,36 @@ PRODUTOS_MOCK = {
     6: {"nome": "Blusa Preta Manga Longa", "preco": 150.00, "imagem": "img/blusa preta.webp", "imagem_costas": "img/blusa preta tras.webp", "nome_categoria": "Unissex", "descricao": "Blusa básica de manga longa em malha premium."},
     7: {"nome": "Jaqueta Jeans", "preco": 180.00, "imagem": "img/jaqueta jeans.webp", "imagem_costas": "img/jaqueta_jeans_tras.webp", "nome_categoria": "Feminino", "descricao": "Jaqueta feminina overshirt confeccionada em jeans encorpado de algodão."},
     8: {"nome": "Camisa Social", "preco": 150.00, "imagem": "img/camisa_social.webp", "imagem_costas": "img/camisa_socia_ tras.webp", "nome_categoria": "Masculino", "descricao": "Camisa social de manga longa em tom suave."},
-    9: {"nome": "Calça Jeans Feminina", "preco": 150.00, "imagem": "img/calça_jeans.webp", "imagem_costas": "img/calça_jeans.webp", "nome_categoria": "Feminino", "descricao": "Calça jeans feminina com lavagem clássica e caimento ajustado ao corpo."}
+    9: {"nome": "Calça Jeans Feminina", "preco": 150.00, "imagem": "img/calça_jeans.webp", "imagem_costas": "img/calça_jeans.webp", "nome_categoria": "Feminino", "descricao": "Calça jeans feminina com lavagem clássica e caimento ajustado ao corpo."},
+    10: {"nome": "Bermuda Jeans Estampada", "preco": 140.00, "imagem": "img/bermuda_jeans_frente.webp", "imagem_costas": "img/bermuda_jeans_atras.webp", "nome_categoria": "Masculino", "descricao": "Bermuda jeans com lavagem especial e estampa frontal urbana."},
+    11: {"nome": "Casaco com Capuz e Fecho Branco", "preco": 160.00, "imagem": "img/Blusa Branca Frente.webp", "imagem_costas": "img/blusa_branca_atras.webp", "nome_categoria": "Feminino", "descricao": "Casaco em moletom confortável com fecho e capuz ajustável."},
+    12: {"nome": "Camiseta Estampada Gorillaz", "preco": 95.00, "imagem": "img/blusa_banda_frente.webp", "imagem_costas": "img/blusa_banda_tras.webp", "nome_categoria": "Unissex", "descricao": "Camiseta em algodão macio com estampa exclusiva da banda Gorillaz."},
+    13: {"nome": "Top Frente Única Lastex Branco", "preco": 85.00, "imagem": "img/blusa_verao_frente.webp", "imagem_costas": "img/blusa_verao_tras.webp", "nome_categoria": "Feminino", "descricao": "Top leve com acabamento em lastex e decote frente única."},
+    14: {"nome": "Vestido Longo de Cetim Azul Escuro", "preco": 180.00, "imagem": "img/vestido_azulescuro_frente.webp", "imagem_costas": "img/vestido_azulescuro_tras.webp", "nome_categoria": "Feminino", "descricao": "Vestido sofisticado em cetim de tom azul escuro com brilho acetinado."},
+    15: {"nome": "Blusa Polo Brasil Verde", "preco": 89.90, "imagem": "img/Blusa_brasil_frente.webp", "imagem_costas": "img/Blusa_brasil_tras.webp", "nome_categoria": "Feminino", "descricao": "Blusa polo feminina verde com detalhes amarelos vibrantes."},
+    16: {"nome": "Camiseta Oversized Brutal Esqueleto", "preco": 110.00, "imagem": "img/Blusa_esqueleto_frente.webp", "imagem_costas": "img/Blusa_esqueleto_tras.webp", "nome_categoria": "Masculino", "descricao": "Camiseta oversized preta com estampa gráfica de esqueleto."},
+    17: {"nome": "Calça Jeans Wide Leg Feminina", "preco": 170.00, "imagem": "img/calça_jeans_wideLeg_frente.webp", "imagem_costas": "img/calça_jeans_wideLeg_tras.webp", "nome_categoria": "Feminino", "descricao": "Calça jeans wide leg de cintura alta com excelente caimento."},
+    18: {"nome": "Jaqueta de Couro Sintético Preta", "preco": 250.00, "imagem": "img/Jaqueta_Preta_frente.webp", "imagem_costas": "img/Jaqueta_Preta_tras.webp", "nome_categoria": "Unissex", "descricao": "Jaqueta unissex em couro sintético preto de alta resistência."},
+    19: {"nome": "Calça Jeans Infantil Preta com Estrelas", "preco": 130.00, "imagem": "img/calca-infantil-frente.webp", "imagem_costas": "img/calca-infantil-tras.webp", "nome_categoria": "Infantil", "descricao": "Calça jeans infantil preta decorada com estrelas."},
+    20: {"nome": "Calça Jeans Wide Leg Cinza", "preco": 160.00, "imagem": "img/calca_jeans-cinza-frente.webp", "imagem_costas": "img/calca_jeans-cinza-tras.webp", "nome_categoria": "Unissex", "descricao": "Calça jeans cinza com modelagem wide leg e estilo contemporâneo."},
+    21: {"nome": "Camisa Polo Branca com Zíper", "preco": 120.00, "imagem": "img/camisa-polo-branca-frente.webp", "imagem_costas": "img/camisa-polo-branca-tras.webp", "nome_categoria": "Masculino", "descricao": "Camisa polo masculina em algodão branco com fecho em zíper metálico."},
+    22: {"nome": "Camiseta Roxa Estampada Oriental", "preco": 95.00, "imagem": "img/camisa-style-roxa-frente.webp", "imagem_costas": "img/camisa-style-roxa-tras.webp", "nome_categoria": "Unissex", "descricao": "Camiseta roxa com estampa oriental em destaque nas costas."},
+    23: {"nome": "Calça Jeans Baggy Preta com Strass Chamas", "preco": 210.00, "imagem": "img/calca_preta_frente.webp", "imagem_costas": "img/calca_preta_frente.webp", "nome_categoria": "Unissex", "descricao": "Calça jeans baggy preta com aplicação em strass em formato de chamas."},
+    24: {"nome": "Calça Baggy Preta Streetwear com Vivos", "preco": 169.90, "imagem": "img/calca-larga-preta-frente.webp", "imagem_costas": "img/calca-larga-preta-frente.webp", "nome_categoria": "Unissex", "descricao": "Calça baggy preta estilo streetwear com detalhes em linhas brancas destacadas."},
+    25: {"nome": "Camiseta Infantil Capivara Piloto", "preco": 89.90, "imagem": "img/capivara frente.webp", "imagem_costas": "img/capivara tras.webp", "nome_categoria": "Infantil", "descricao": "Camiseta infantil divertida com ilustração de capivara de capacete."},
+    26: {"nome": "Camiseta Infantil Amarela 'LOVELY'", "preco": 75.00, "imagem": "img/top_floral_peplum_2.webp", "imagem_costas": "img/top_floral_peplum_1.webp", "nome_categoria": "Infantil", "descricao": "Camiseta infantil amarela com estampa frontal delicada."},
+    27: {"nome": "Top Regata em Renda Rosa", "preco": 99.00, "imagem": "img/top_renda_rosa_frente.webp", "imagem_costas": "img/top_renda_rosa_costas.webp", "nome_categoria": "Feminino", "descricao": "Top regata curto confeccionado em renda tom rosa claro."},
+    28: {"nome": "Camiseta Oversized Verde 'New York'", "preco": 119.90, "imagem": "img/tshirt_verde_frente.webp", "imagem_costas": "img/tshirt_verde_tras.webp", "nome_categoria": "Unissex", "descricao": "Camiseta oversized verde escuro com estampa New York."},
+    29: {"nome": "Vestido Mídi Estampa Tropical Azul", "preco": 199.00, "imagem": "img/vestido_azul-frente.webp", "imagem_costas": "img/vestido_azul-tras.webp", "nome_categoria": "Feminino", "descricao": "Vestido mídi leve com padronagem tropical azul e alças finas."},
+    30: {"nome": "Bermuda Infantil Bege Dinossauro", "preco": 69.90, "imagem": "img/bermuda_marrom_infantil_frente.webp", "imagem_costas": "img/bermuda_marrom_infantil_tras.webp", "nome_categoria": "Infantil", "descricao": "Bermuda infantil bege confortável com bordado de dinossauro."},
+    31: {"nome": "Jaqueta Infantil Corta-Vento Floral com Capuz", "preco": 129.90, "imagem": "img/blusa_frio_infantil_frente.webp", "imagem_costas": "img/blusa_frio_infantil_tras.webp", "nome_categoria": "Infantil", "descricao": "Corta-vento infantil floral com capuz e proteção contra o vento."},
+    32: {"nome": "Regata Infantil Xadrez Rosa Moranguinhos", "preco": 59.90, "imagem": "img/blusa_rosa_infantil_frente.webp", "imagem_costas": "img/blusa_rosa_infantil_tras.webp", "nome_categoria": "Infantil", "descricao": "Regata infantil em xadrez rosa com detalhes de morangos."},
+    33: {"nome": "Camiseta Infantil Snoopy Peanuts", "preco": 69.90, "imagem": "img/camisa_ilustrada_infantil_frente.webp", "imagem_costas": "img/camisa_ilustrada_infantil_tras.webp", "nome_categoria": "Infantil", "descricao": "Camiseta azul marinho infantil estampada com a turma do Snoopy."},
+    34: {"nome": "Camiseta Infantil Listrada com Botões", "preco": 65.00, "imagem": "img/camisa_infantil_listrada_frente.webp", "imagem_costas": "img/camisa_infantil_listrada_tras.webp", "nome_categoria": "Infantil", "descricao": "Camiseta infantil listrada com abertura de botões no peito."},
+    35: {"nome": "Camiseta Infantil Preta 'Super League'", "preco": 69.90, "imagem": "img/camisa_preta_infantil_frente.webp", "imagem_costas": "img/camisa_preta_infantil_tras.webp", "nome_categoria": "Infantil", "descricao": "Camiseta preta infantil estilo desportivo Super League."},
+    36: {"nome": "Camiseta Infantil Oversized 'Athletic League 30'", "preco": 79.90, "imagem": "img/camisa_time_infatil_frente.webp", "imagem_costas": "img/camisa_time_infatil_tras.webp", "nome_categoria": "Infantil", "descricao": "Camiseta oversized branca infantil com estampa de liga desportiva."},
+    37: {"nome": "Camiseta Infantil Bege Cãozinho com Bolso", "preco": 59.90, "imagem": "img/camisa-ilustrada-cachorro-infatil-frente.webp", "imagem_costas": "img/camisa-ilustrada-cachorro-infatil-tras.webp", "nome_categoria": "Infantil", "descricao": "Camiseta bege infantil com bolso e ilustração de cãozinho."},
+    38: {"nome": "Conjunto Infantil Amarelo Floral Regata e Calça", "preco": 119.90, "imagem": "img/conjuto_amarelo_infatil_frente.webp", "imagem_costas": "img/conjuto_amarelo_infatil_tras.webp", "nome_categoria": "Infantil", "descricao": "Conjunto infantil de duas peças (regata e calça) com estampa floral amarela."}
 }
 
 
@@ -233,6 +263,24 @@ def produtos_pagina(categoria=None):
         finally:
             conexao.close()
 
+    if not produtos:
+        produtos_lista = []
+        for k, v in PRODUTOS_MOCK.items():
+            item = {"id_produto": k, **v}
+
+            if categoria and categoria.lower() not in ["todos", "produtos"]:
+                cat_item = item["nome_categoria"].lower()
+                cat_filtro = categoria.lower()
+                if cat_filtro not in cat_item and cat_item not in cat_filtro:
+                    continue
+
+            if busca:
+                if busca.lower() not in item["nome"].lower():
+                    continue
+
+            produtos_lista.append(item)
+        produtos = produtos_lista
+
     return render_template(
         "produtos.html",
         produtos=produtos,
@@ -286,23 +334,27 @@ def produto_detalhes(id_produto):
             conexao.close()
 
     if not produto:
-        dados_base = PRODUTOS_MOCK.get(id_produto, {
-            "nome": f"Produto Exclusivo #{id_produto}",
-            "preco": 199.90,
-            "imagem": "img/jaqueta jeans.webp",
-            "imagem_costas": "img/jaqueta_jeans_tras.webp",
-            "nome_categoria": "Geral",
-            "descricao": "Peça exclusiva da nova coleção Lumina, desenvolvida para proporcionar conforto e sofisticação."
-        })
-        produto = {
-            "id_produto": id_produto,
-            "nome": dados_base["nome"],
-            "preco": dados_base["preco"],
-            "imagem": dados_base["imagem"],
-            "imagem_costas": dados_base.get("imagem_costas"),
-            "nome_categoria": dados_base["nome_categoria"],
-            "descricao": dados_base["descricao"]
-        }
+        dados_base = PRODUTOS_MOCK.get(id_produto)
+        if dados_base:
+            produto = {
+                "id_produto": id_produto,
+                "nome": dados_base["nome"],
+                "preco": dados_base["preco"],
+                "imagem": dados_base["imagem"],
+                "imagem_costas": dados_base.get("imagem_costas"),
+                "nome_categoria": dados_base["nome_categoria"],
+                "descricao": dados_base["descricao"]
+            }
+        else:
+            produto = {
+                "id_produto": id_produto,
+                "nome": f"Produto Exclusivo #{id_produto}",
+                "preco": 199.90,
+                "imagem": "img/jaqueta jeans.webp",
+                "imagem_costas": "img/jaqueta_jeans_tras.webp",
+                "nome_categoria": "Geral",
+                "descricao": "Peça exclusiva da nova coleção Lumina, desenvolvida para proporcionar conforto e sofisticação."
+            }
     else:
         try:
             produto["preco"] = float(produto["preco"])
@@ -363,7 +415,8 @@ def salvar():
         session["usuario_email"] = email
         session["usuario_telefone"] = telefone
 
-        return redirect(url_for("listar_usuarios"))
+        # Redireciona direto para o perfil após o cadastro
+        return redirect(url_for("perfil"))
 
     except pymysql.MySQLError as erro:
         if conexao:
@@ -384,7 +437,8 @@ def salvar():
 @app.route("/login")
 def login():
     if "usuario_id" in session:
-        return redirect(url_for("listar_usuarios"))
+        # Se já estiver logado, vai direto para o perfil
+        return redirect(url_for("perfil"))
 
     return render_template("login.html", erro=None, sucesso=request.args.get("sucesso"), email_digitado="")
 
@@ -403,7 +457,12 @@ def autenticar():
 
     try:
         with conexao.cursor() as cursor:
-            sql = "SELECT id_usuario, nome, email, senha FROM usuario WHERE email = %s"
+            sql = """
+                SELECT u.id_usuario, u.nome, u.email, u.senha, t.numero AS telefone
+                FROM usuario AS u
+                LEFT JOIN telefone AS t ON u.id_usuario = t.id_usuario
+                WHERE u.email = %s
+            """
             cursor.execute(sql, (email,))
             usuario = cursor.fetchone()
 
@@ -411,7 +470,11 @@ def autenticar():
                 session["usuario_id"] = usuario["id_usuario"]
                 session["usuario_nome"] = usuario["nome"]
                 session["usuario_email"] = usuario["email"]
-                return redirect(url_for("listar_usuarios"))
+                if usuario.get("telefone"):
+                    session["usuario_telefone"] = usuario["telefone"]
+
+                # Redireciona direto para o perfil após o login
+                return redirect(url_for("perfil"))
             else:
                 return render_template("login.html", erro="E-mail ou senha incorretos.", email_digitado=email), 401
 
@@ -625,12 +688,116 @@ def checkout():
     return render_template("checkout.html", produtos=carrinho_atual, total=total)
 
 
+# ==========================================
+# CONFIRMAÇÃO DE PAGAMENTO E PEDIDO
+# ==========================================
+
 @app.route("/confirmar-pagamento", methods=["POST"])
 def confirmar_pagamento():
-    session.pop("carrinho", None)
+    carrinho_atual = session.get("carrinho", [])
+    if not carrinho_atual:
+        return redirect(url_for("carrinho"))
+
+    usuario_id = session.get("usuario_id")
+    if not usuario_id:
+        return redirect(url_for("login"))
+
+    total = sum(float(item["preco"]) * int(item["quantidade"]) for item in carrinho_atual)
+
+    conexao = conectar_mysql()
+    if not conexao:
+        return render_template(
+            "checkout.html", 
+            produtos=carrinho_atual, 
+            total=total, 
+            erro="Não foi possível ligar à base de dados."
+        ), 500
+
+    try:
+        with conexao.cursor() as cursor:
+            # 1. Recupera ou cria o registo do cliente associado ao utilizador
+            cursor.execute("SELECT cliente_id FROM clientes WHERE id_usuario = %s", (usuario_id,))
+            cliente = cursor.fetchone()
+
+            if not cliente:
+                cursor.execute("INSERT INTO clientes (id_usuario) VALUES (%s)", (usuario_id,))
+                cliente_id = cursor.lastrowid
+            else:
+                cliente_id = cliente["cliente_id"]
+
+            # 2. Grava o pedido na tabela pedidos
+            sql_pedido = """
+                INSERT INTO pedidos (cliente_id, data_pedido, total_pedido)
+                VALUES (%s, NOW(), %s)
+            """
+            cursor.execute(sql_pedido, (cliente_id, total))
+            pedido_id = cursor.lastrowid
+
+        conexao.commit()
+        session.pop("carrinho", None)
+
+        # Redireciona para a página de confirmação específica do pedido
+        return redirect(url_for("confirmacao_pedido", id_pedido=pedido_id))
+
+    except pymysql.MySQLError as erro:
+        if conexao:
+            conexao.rollback()
+        print(f"Erro ao registrar pedido: {erro}")
+        return render_template(
+            "checkout.html", 
+            produtos=carrinho_atual, 
+            total=total, 
+            erro="Erro ao gravar o pedido na base de dados."
+        ), 500
+
+    finally:
+        if conexao:
+            conexao.close()
+
+
+@app.route("/confirmacao-pedido/<int:id_pedido>")
+def confirmacao_pedido(id_pedido):
+    usuario_id = session.get("usuario_id")
+    if not usuario_id:
+        return redirect(url_for("login"))
+
+    conexao = conectar_mysql()
+    pedido = None
+
+    if conexao:
+        try:
+            with conexao.cursor() as cursor:
+                sql = """
+                    SELECT 
+                        p.pedido_id AS id_pedido,
+                        p.data_pedido,
+                        p.total_pedido AS total,
+                        u.nome AS nome_cliente,
+                        u.email AS email_cliente
+                    FROM pedidos AS p
+                    INNER JOIN clientes AS c ON p.cliente_id = c.cliente_id
+                    INNER JOIN usuario AS u ON c.id_usuario = u.id_usuario
+                    WHERE p.pedido_id = %s AND u.id_usuario = %s
+                """
+                cursor.execute(sql, (id_pedido, usuario_id))
+                pedido = cursor.fetchone()
+        except pymysql.MySQLError as erro:
+            print(f"Erro ao buscar confirmação do pedido: {erro}")
+        finally:
+            conexao.close()
+
+    if not pedido:
+        pedido = {
+            "id_pedido": id_pedido,
+            "data_pedido": "Hoje",
+            "total": 0.0
+        }
+
     return render_template(
-        "contato.html",
-        sucesso="🎉 Compra realizada com sucesso! O seu pedido já está a ser processado."
+        "confirmacao_pedido.html",
+        pedido_id=pedido["id_pedido"],
+        data_pedido=pedido.get("data_pedido"),
+        total=pedido.get("total", 0.0)
     )
 
 

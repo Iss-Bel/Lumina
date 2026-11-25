@@ -21,7 +21,9 @@
             />
           </svg>
           <strong>Seja um Parceiro Lumina</strong>
-          <a href="{{ url_for('cadastro') }}" class="banner-link">Cadastre-se agora</a>
+          <a href="{{ url_for('cadastro') }}" class="banner-link"
+            >Cadastre-se agora</a
+          >
         </div>
 
         <span class="banner-divider" aria-hidden="true">|</span>
@@ -45,179 +47,25 @@
             />
           </svg>
           <div class="rotator-text">
-            <span class="rotator-item"><strong>Devolução Grátis</strong> em até 30 dias!</span>
-            <span class="rotator-item"><strong>Até 50% OFF</strong> na nova coleção!</span>
-            <span class="rotator-item"><strong>Parcele em até 6x</strong> sem juros!</span>
-            <span class="rotator-item"><strong>Cupom LUMINA10</strong> para a 1ª compra!</span>
+            <span class="rotator-item"
+              ><strong>Devolução Grátis</strong> em até 30 dias!</span
+            >
+            <span class="rotator-item"
+              ><strong>Até 50% OFF</strong> na nova coleção!</span
+            >
+            <span class="rotator-item"
+              ><strong>Parcele em até 6x</strong> sem juros!</span
+            >
+            <span class="rotator-item"
+              ><strong>Cupom LUMINA10</strong> para a 1ª compra!</span
+            >
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Cabeçalho Principal -->
-    <header class="header-principal">
-      <div class="header-container">
-        <a href="{{ url_for('inicio') }}" class="logo-link">
-          <img
-            src="{{ url_for('static', filename='img/Lumina.webp') }}"
-            alt="Logotipo Lumina"
-            width="300"
-            class="logo-flutuante"
-          />
-        </a>
-
-        <!-- Menu de Navegação e Barra de Ações -->
-        <nav class="nav-principal" aria-label="Navegação principal">
-          <div class="nav-header-container">
-            <!-- Caixa de Pesquisa -->
-            <div class="search-container">
-              <form
-                class="search-box"
-                action="{{ url_for('produtos_pagina') }}"
-                method="GET"
-                role="search"
-              >
-                <label for="search-input" class="sr-only">Buscar produtos</label>
-                <input
-                  type="search"
-                  id="search-input"
-                  name="q"
-                  class="search-input"
-                  placeholder="Buscar produtos, marcas, tendências..."
-                  required
-                />
-                <button
-                  type="submit"
-                  class="search-button sparkle-btn"
-                  aria-label="Pesquisar"
-                >
-                  <svg
-                    class="search-icon"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                  </svg>
-                </button>
-              </form>
-            </div>
-
-            <!-- Ações do Usuário -->
-            <div class="user-actions">
-              <a
-                href="{{ url_for('provador') }}"
-                class="btn-profile sparkle-btn"
-                aria-label="Provador Virtual"
-              >
-                <svg
-                  class="action-icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M20.38 3.46L16 2a4 4 0 0 0-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path>
-                </svg>
-                <span>Provador Virtual</span>
-              </a>
-
-              <a
-                href="{{ url_for('perfil') }}"
-                class="btn-profile sparkle-btn"
-                aria-label="Meu Perfil"
-              >
-                <svg
-                  class="action-icon user-silhouette"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-                  />
-                </svg>
-                <span>Perfil</span>
-              </a>
-
-              <a
-                href="{{ url_for('consultar_pedidos') }}"
-                class="btn-profile sparkle-btn"
-                aria-label="Consultar Pedidos"
-                title="Consultar Pedidos"
-              >
-                <svg
-                  class="action-icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-                  ></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                  <line x1="16" y1="13" x2="8" y2="13"></line>
-                  <line x1="16" y1="17" x2="8" y2="17"></line>
-                </svg>
-                <span>Pedidos</span>
-              </a>
-
-              <a
-                href="{{ url_for('carrinho') }}"
-                class="btn-cart sparkle-btn"
-                aria-label="Carrinho de Compras com {{ session.get('carrinho', [])|length }} itens"
-              >
-                <svg
-                  class="action-icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <circle cx="9" cy="21" r="1"></circle>
-                  <circle cx="20" cy="21" r="1"></circle>
-                  <path
-                    d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
-                  ></path>
-                </svg>
-                <span class="cart-count"
-                  >{{ session.get('carrinho', [])|length }}</span
-                >
-              </a>
-            </div>
-          </div>
-        </nav>
-      </div>
-    </header>
-
-    <!-- Categorias do Menu Centralizadas -->
-    <nav class="nav-categorias" aria-label="Categorias de produtos" style="display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;">
-      <a href="{{ url_for('produtos_pagina') }}" class="btn-category sparkle-btn categoria-item" data-filtro="todos">Ver Todos os Produtos</a>
-      <a href="{{ url_for('produtos_pagina', categoria='feminino') }}" class="btn-category sparkle-btn categoria-item" data-filtro="feminino">Feminino</a>
-      <a href="{{ url_for('produtos_pagina', categoria='masculino') }}" class="btn-category sparkle-btn categoria-item" data-filtro="masculino">Masculino</a>
-      <a href="{{ url_for('produtos_pagina', categoria='unissex') }}" class="btn-category sparkle-btn categoria-item" data-filtro="unissex">Unissex</a>
-      <a href="{{ url_for('provador') }}" class="btn-category sparkle-btn">Provador Virtual</a>
-    </nav>
+    <!-- Cabeçalho e Menu de Categorias importados -->
+    {% include 'navbar.html' %}
 
     <!-- Banner Destaque de Tendências -->
     <section class="banner-tendencias" aria-label="Destaque Tendências">
@@ -234,7 +82,10 @@
       <section class="grid" id="produtos" aria-label="Produtos em destaque">
         <!-- Produto 1 -->
         <article class="card" data-categoria="feminino blusas">
-          <a href="{{ url_for('produto_detalhes', id_produto=1) }}" class="card-link">
+          <a
+            href="{{ url_for('produto_detalhes', id_produto=1) }}"
+            class="card-link"
+          >
             <div class="card-imagem-container">
               <img
                 src="{{ url_for('static', filename='img/cardicam_amarela.webp') }}"
@@ -253,12 +104,23 @@
             <p class="preco">R$ 70,00</p>
 
             <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
-              <input type="hidden" name="nome" value="Cardigan em Tricô Canelado com Renda" />
+              <input
+                type="hidden"
+                name="nome"
+                value="Cardigan em Tricô Canelado com Renda"
+              />
               <input type="hidden" name="preco" value="70.00" />
-              <input type="hidden" name="imagem" value="{{ url_for('static', filename='img/cardicam_amarela.webp') }}" />
+              <input
+                type="hidden"
+                name="imagem"
+                value="{{ url_for('static', filename='img/cardicam_amarela.webp') }}"
+              />
               <input type="hidden" name="tamanho" value="Único" />
               <input type="hidden" name="cor" value="Amarelo" />
-              <button type="submit" class="btn btn--primario btn--bloco sparkle-btn">
+              <button
+                type="submit"
+                class="btn btn--primario btn--bloco sparkle-btn"
+              >
                 Adicionar ao Carrinho
               </button>
             </form>
@@ -267,7 +129,10 @@
 
         <!-- Produto 2 -->
         <article class="card" data-categoria="feminino vestidos">
-          <a href="{{ url_for('produto_detalhes', id_produto=2) }}" class="card-link">
+          <a
+            href="{{ url_for('produto_detalhes', id_produto=2) }}"
+            class="card-link"
+          >
             <div class="card-imagem-container">
               <img
                 src="{{ url_for('static', filename='img/vestido_roxo.webp') }}"
@@ -286,12 +151,23 @@
             <p class="preco">R$ 150,00</p>
 
             <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
-              <input type="hidden" name="nome" value="Vestido Frente Única Roxo Curto" />
+              <input
+                type="hidden"
+                name="nome"
+                value="Vestido Frente Única Roxo Curto"
+              />
               <input type="hidden" name="preco" value="150.00" />
-              <input type="hidden" name="imagem" value="{{ url_for('static', filename='img/vestido_roxo.webp') }}" />
+              <input
+                type="hidden"
+                name="imagem"
+                value="{{ url_for('static', filename='img/vestido_roxo.webp') }}"
+              />
               <input type="hidden" name="tamanho" value="P" />
               <input type="hidden" name="cor" value="Roxo" />
-              <button type="submit" class="btn btn--primario btn--bloco sparkle-btn">
+              <button
+                type="submit"
+                class="btn btn--primario btn--bloco sparkle-btn"
+              >
                 Adicionar ao Carrinho
               </button>
             </form>
@@ -300,7 +176,10 @@
 
         <!-- Produto 3 -->
         <article class="card" data-categoria="unissex blusas">
-          <a href="{{ url_for('produto_detalhes', id_produto=3) }}" class="card-link">
+          <a
+            href="{{ url_for('produto_detalhes', id_produto=3) }}"
+            class="card-link"
+          >
             <div class="card-imagem-container">
               <img
                 src="{{ url_for('static', filename='img/camisa_branca_estampada.webp') }}"
@@ -319,12 +198,23 @@
             <p class="preco">R$ 90,00</p>
 
             <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
-              <input type="hidden" name="nome" value="Camisa Branca Estampada" />
+              <input
+                type="hidden"
+                name="nome"
+                value="Camisa Branca Estampada"
+              />
               <input type="hidden" name="preco" value="90.00" />
-              <input type="hidden" name="imagem" value="{{ url_for('static', filename='img/camisa_branca_estampada.webp') }}" />
+              <input
+                type="hidden"
+                name="imagem"
+                value="{{ url_for('static', filename='img/camisa_branca_estampada.webp') }}"
+              />
               <input type="hidden" name="tamanho" value="M" />
               <input type="hidden" name="cor" value="Branco" />
-              <button type="submit" class="btn btn--primario btn--bloco sparkle-btn">
+              <button
+                type="submit"
+                class="btn btn--primario btn--bloco sparkle-btn"
+              >
                 Adicionar ao Carrinho
               </button>
             </form>
@@ -333,7 +223,10 @@
 
         <!-- Produto 4 -->
         <article class="card" data-categoria="unissex calcas">
-          <a href="{{ url_for('produto_detalhes', id_produto=4) }}" class="card-link">
+          <a
+            href="{{ url_for('produto_detalhes', id_produto=4) }}"
+            class="card-link"
+          >
             <div class="card-imagem-container">
               <img
                 src="{{ url_for('static', filename='img/calça_baggy.webp') }}"
@@ -354,10 +247,17 @@
             <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
               <input type="hidden" name="nome" value="Calça Baggy Unissex" />
               <input type="hidden" name="preco" value="150.00" />
-              <input type="hidden" name="imagem" value="{{ url_for('static', filename='img/calça_baggy.webp') }}" />
+              <input
+                type="hidden"
+                name="imagem"
+                value="{{ url_for('static', filename='img/calça_baggy.webp') }}"
+              />
               <input type="hidden" name="tamanho" value="38" />
               <input type="hidden" name="cor" value="Jeans" />
-              <button type="submit" class="btn btn--primario btn--bloco sparkle-btn">
+              <button
+                type="submit"
+                class="btn btn--primario btn--bloco sparkle-btn"
+              >
                 Adicionar ao Carrinho
               </button>
             </form>
@@ -366,7 +266,10 @@
 
         <!-- Produto 5 -->
         <article class="card" data-categoria="masculino blusas">
-          <a href="{{ url_for('produto_detalhes', id_produto=5) }}" class="card-link">
+          <a
+            href="{{ url_for('produto_detalhes', id_produto=5) }}"
+            class="card-link"
+          >
             <div class="card-imagem-container">
               <img
                 src="{{ url_for('static', filename='img/camisa_preta.webp') }}"
@@ -387,10 +290,17 @@
             <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
               <input type="hidden" name="nome" value="Camisa Preta Masculina" />
               <input type="hidden" name="preco" value="150.00" />
-              <input type="hidden" name="imagem" value="{{ url_for('static', filename='img/camisa_preta.webp') }}" />
+              <input
+                type="hidden"
+                name="imagem"
+                value="{{ url_for('static', filename='img/camisa_preta.webp') }}"
+              />
               <input type="hidden" name="tamanho" value="M" />
               <input type="hidden" name="cor" value="Preto" />
-              <button type="submit" class="btn btn--primario btn--bloco sparkle-btn">
+              <button
+                type="submit"
+                class="btn btn--primario btn--bloco sparkle-btn"
+              >
                 Adicionar ao Carrinho
               </button>
             </form>
@@ -398,8 +308,11 @@
         </article>
 
         <!-- Produto 6 -->
-        <article class="card" data-categoria="unissex blusas">
-          <a href="{{ url_for('produto_detalhes', id_produto=6) }}" class="card-link">
+        <article class="card" data-categoria="feminino blusas">
+          <a
+            href="{{ url_for('produtos_pagina') }}"
+            class="card-link"
+          >
             <div class="card-imagem-container">
               <img
                 src="{{ url_for('static', filename='img/blusa preta.webp') }}"
@@ -418,12 +331,23 @@
             <p class="preco">R$ 150,00</p>
 
             <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
-              <input type="hidden" name="nome" value="Blusa Preta Manga Longa" />
+              <input
+                type="hidden"
+                name="nome"
+                value="Blusa Preta Manga Longa"
+              />
               <input type="hidden" name="preco" value="150.00" />
-              <input type="hidden" name="imagem" value="{{ url_for('static', filename='img/blusa preta.webp') }}" />
+              <input
+                type="hidden"
+                name="imagem"
+                value="{{ url_for('static', filename='img/blusa preta.webp') }}"
+              />
               <input type="hidden" name="tamanho" value="M" />
               <input type="hidden" name="cor" value="Preto" />
-              <button type="submit" class="btn btn--primario btn--bloco sparkle-btn">
+              <button
+                type="submit"
+                class="btn btn--primario btn--bloco sparkle-btn"
+              >
                 Adicionar ao Carrinho
               </button>
             </form>
@@ -432,7 +356,10 @@
 
         <!-- Produto 7 -->
         <article class="card" data-categoria="feminino blusas">
-          <a href="{{ url_for('produto_detalhes', id_produto=7) }}" class="card-link">
+          <a
+            href="{{ url_for('produto_detalhes', id_produto=7) }}"
+            class="card-link"
+          >
             <div class="card-imagem-container">
               <img
                 src="{{ url_for('static', filename='img/jaqueta jeans.webp') }}"
@@ -451,12 +378,23 @@
             <p class="preco">R$ 180,00</p>
 
             <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
-              <input type="hidden" name="nome" value="Jaqueta Jeans Overshirt Com Botões Frontais" />
+              <input
+                type="hidden"
+                name="nome"
+                value="Jaqueta Jeans Overshirt Com Botões Frontais"
+              />
               <input type="hidden" name="preco" value="180.00" />
-              <input type="hidden" name="imagem" value="{{ url_for('static', filename='img/jaqueta jeans.webp') }}" />
+              <input
+                type="hidden"
+                name="imagem"
+                value="{{ url_for('static', filename='img/jaqueta jeans.webp') }}"
+              />
               <input type="hidden" name="tamanho" value="M" />
               <input type="hidden" name="cor" value="Jeans" />
-              <button type="submit" class="btn btn--primario btn--bloco sparkle-btn">
+              <button
+                type="submit"
+                class="btn btn--primario btn--bloco sparkle-btn"
+              >
                 Adicionar ao Carrinho
               </button>
             </form>
@@ -465,7 +403,10 @@
 
         <!-- Produto 8 -->
         <article class="card" data-categoria="masculino blusas">
-          <a href="{{ url_for('produto_detalhes', id_produto=8) }}" class="card-link">
+          <a
+            href="{{ url_for('produto_detalhes', id_produto=8) }}"
+            class="card-link"
+          >
             <div class="card-imagem-container">
               <img
                 src="{{ url_for('static', filename='img/camisa_social.webp') }}"
@@ -486,10 +427,17 @@
             <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
               <input type="hidden" name="nome" value="Camisa Social Amarela" />
               <input type="hidden" name="preco" value="150.00" />
-              <input type="hidden" name="imagem" value="{{ url_for('static', filename='img/camisa_social.webp') }}" />
+              <input
+                type="hidden"
+                name="imagem"
+                value="{{ url_for('static', filename='img/camisa_social.webp') }}"
+              />
               <input type="hidden" name="tamanho" value="M" />
               <input type="hidden" name="cor" value="Amarelo" />
-              <button type="submit" class="btn btn--primario btn--bloco sparkle-btn">
+              <button
+                type="submit"
+                class="btn btn--primario btn--bloco sparkle-btn"
+              >
                 Adicionar ao Carrinho
               </button>
             </form>
@@ -498,7 +446,10 @@
 
         <!-- Produto 9 -->
         <article class="card" data-categoria="feminino calcas">
-          <a href="{{ url_for('produto_detalhes', id_produto=9) }}" class="card-link">
+          <a
+            href="{{ url_for('produto_detalhes', id_produto=9) }}"
+            class="card-link"
+          >
             <div class="card-imagem-container">
               <img
                 src="{{ url_for('static', filename='img/calça_jeans.webp') }}"
@@ -519,10 +470,17 @@
             <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
               <input type="hidden" name="nome" value="Calça Jeans Feminina" />
               <input type="hidden" name="preco" value="150.00" />
-              <input type="hidden" name="imagem" value="{{ url_for('static', filename='img/calça_jeans.webp') }}" />
+              <input
+                type="hidden"
+                name="imagem"
+                value="{{ url_for('static', filename='img/calça_jeans.webp') }}"
+              />
               <input type="hidden" name="tamanho" value="38" />
               <input type="hidden" name="cor" value="Jeans" />
-              <button type="submit" class="btn btn--primario btn--bloco sparkle-btn">
+              <button
+                type="submit"
+                class="btn btn--primario btn--bloco sparkle-btn"
+              >
                 Adicionar ao Carrinho
               </button>
             </form>

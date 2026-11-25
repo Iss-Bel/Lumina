@@ -21,7 +21,9 @@
             />
           </svg>
           <strong>Seja um Parceiro Lumina</strong>
-          <a href="{{ url_for('cadastro') }}" class="banner-link">Cadastre-se agora</a>
+          <a href="{{ url_for('cadastro') }}" class="banner-link"
+            >Cadastre-se agora</a
+          >
         </div>
 
         <span class="banner-divider" aria-hidden="true">|</span>
@@ -33,7 +35,9 @@
             />
           </svg>
           <strong>Frete Grátis</strong>
-          <a href="{{ url_for('produtos_pagina') }}" class="banner-link">Veja condições</a>
+          <a href="{{ url_for('produtos_pagina') }}" class="banner-link"
+            >Veja condições</a
+          >
         </div>
 
         <span class="banner-divider" aria-hidden="true">|</span>
@@ -45,179 +49,35 @@
             />
           </svg>
           <div class="rotator-text">
-            <span class="rotator-item"><strong>Devolução Grátis</strong> em até 30 dias!</span>
-            <span class="rotator-item"><strong>Até 50% OFF</strong> na nova coleção!</span>
-            <span class="rotator-item"><strong>Parcele em até 6x</strong> sem juros!</span>
-            <span class="rotator-item"><strong>Cupom LUMINA10</strong> para a 1ª compra!</span>
+            <span class="rotator-item"
+              ><strong>Devolução Grátis</strong> em até 30 dias!</span
+            >
+            <span class="rotator-item"
+              ><strong>Até 50% OFF</strong> na nova coleção!</span
+            >
+            <span class="rotator-item"
+              ><strong>Parcele em até 6x</strong> sem juros!</span
+            >
+            <span class="rotator-item"
+              ><strong>Cupom LUMINA10</strong> para a 1ª compra!</span
+            >
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Cabeçalho Principal -->
-    <header class="header-principal">
-      <div class="header-container">
-        <a href="{{ url_for('inicio') }}" class="logo-link">
-          <img
-            src="{{ url_for('static', filename='img/Lumina.webp') }}"
-            alt="Logotipo Lumina"
-            width="300"
-            class="logo-flutuante"
-          />
-        </a>
-
-        <nav class="nav-principal" aria-label="Navegação principal">
-          <div class="nav-header-container">
-            <div class="search-container">
-              <form
-                class="search-box"
-                action="{{ url_for('produtos_pagina') }}"
-                method="GET"
-                role="search"
-              >
-                <label for="search-input" class="sr-only">Buscar produtos</label>
-                <input
-                  type="search"
-                  id="search-input"
-                  name="q"
-                  class="search-input"
-                  placeholder="Buscar produtos, marcas, tendências..."
-                  required
-                />
-                <button
-                  type="submit"
-                  class="search-button sparkle-btn"
-                  aria-label="Pesquisar"
-                >
-                  <svg
-                    class="search-icon"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                  </svg>
-                </button>
-              </form>
-            </div>
-
-            <div class="user-actions">
-              <a
-                href="{{ url_for('provador') }}"
-                class="btn-profile sparkle-btn"
-                aria-label="Provador Virtual"
-              >
-                <svg
-                  class="action-icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M20.38 3.46L16 2a4 4 0 0 0-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path>
-                </svg>
-                <span>Provador Virtual</span>
-              </a>
-
-              <a
-                href="{{ url_for('perfil') }}"
-                class="btn-profile sparkle-btn"
-                aria-label="Meu Perfil"
-              >
-                <svg
-                  class="action-icon user-silhouette"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-                  />
-                </svg>
-                <span>Perfil</span>
-              </a>
-
-              <a
-                href="{{ url_for('consultar_pedidos') }}"
-                class="btn-profile sparkle-btn"
-                aria-label="Consultar Pedidos"
-                title="Consultar Pedidos"
-              >
-                <svg
-                  class="action-icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-                  ></path>
-                  <polyline points="14 2 14 8 20 8"></polyline>
-                  <line x1="16" y1="13" x2="8" y2="13"></line>
-                  <line x1="16" y1="17" x2="8" y2="17"></line>
-                </svg>
-                <span>Pedidos</span>
-              </a>
-
-              <a
-                href="{{ url_for('carrinho') }}"
-                class="btn-cart sparkle-btn"
-                aria-label="Carrinho de Compras com {{ session.get('carrinho', [])|length }} itens"
-              >
-                <svg
-                  class="action-icon"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  aria-hidden="true"
-                >
-                  <circle cx="9" cy="21" r="1"></circle>
-                  <circle cx="20" cy="21" r="1"></circle>
-                  <path
-                    d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
-                  ></path>
-                </svg>
-                <span class="cart-count"
-                  >{{ session.get('carrinho', [])|length }}</span
-                >
-              </a>
-            </div>
-          </div>
-        </nav>
-      </div>
-    </header>
-
-    <!-- Navegação Secundária -->
-    <nav class="nav-categorias" aria-label="Navegação secundária" style="display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;">
-      <a href="{{ url_for('inicio') }}" class="btn-category sparkle-btn">Início</a>
-      <a href="{{ url_for('produtos_pagina') }}" class="btn-category sparkle-btn">Produtos</a>
-      <a href="{{ url_for('consultar_pedidos') }}" class="btn-category sparkle-btn">Histórico de Compras</a>
-      <a href="{{ url_for('contato') }}" class="btn-category sparkle-btn">Contato</a>
-    </nav>
+    <!-- Cabeçalho e Menu de Categorias importados -->
+    {% include 'navbar.html' %}
 
     <!-- Conteúdo Principal do Carrinho -->
-    <main class="container conteudo-principal-carrinho" style="margin-top: 30px; margin-bottom: 50px;">
-      <div class="pagina-cadastro__cabecalho" style="text-align: center; margin-bottom: 24px">
+    <main
+      class="container conteudo-principal-carrinho"
+      style="margin-top: 30px; margin-bottom: 50px"
+    >
+      <div
+        class="pagina-cadastro__cabecalho"
+        style="text-align: center; margin-bottom: 24px"
+      >
         <h1 class="pagina-cadastro__titulo">Seu Carrinho de Compras</h1>
         <p class="pagina-cadastro__subtitulo">
           Confira os itens escolhidos antes de finalizar o pedido
@@ -226,7 +86,7 @@
 
       {% if produtos and produtos|length > 0 %}
       <div class="aviso" style="border-radius: 50px; margin-bottom: 24px">
-        ✨ Parabéns! Você ganhou <strong>Frete Grátis</strong> para esta compra!
+        Parabéns! Você ganhou <strong>Frete Grátis</strong> para esta compra!
       </div>
 
       <div class="conteudo-carrinho-grid">
@@ -247,18 +107,28 @@
 
             <div class="produto-acoes">
               <div class="controles">
-                <form action="{{ url_for('atualizar_quantidade') }}" method="POST">
+                <form
+                  action="{{ url_for('atualizar_quantidade') }}"
+                  method="POST"
+                >
                   <input type="hidden" name="index" value="{{ loop.index0 }}" />
                   <input type="hidden" name="acao" value="diminuir" />
-                  <button type="submit" aria-label="Diminuir quantidade">-</button>
+                  <button type="submit" aria-label="Diminuir quantidade">
+                    -
+                  </button>
                 </form>
 
                 <span>{{ item.quantidade }}</span>
 
-                <form action="{{ url_for('atualizar_quantidade') }}" method="POST">
+                <form
+                  action="{{ url_for('atualizar_quantidade') }}"
+                  method="POST"
+                >
                   <input type="hidden" name="index" value="{{ loop.index0 }}" />
                   <input type="hidden" name="acao" value="aumentar" />
-                  <button type="submit" aria-label="Aumentar quantidade">+</button>
+                  <button type="submit" aria-label="Aumentar quantidade">
+                    +
+                  </button>
                 </form>
               </div>
 
@@ -266,7 +136,10 @@
                 Subtotal: R$ {{ "%.2f"|format(item.preco * item.quantidade) }}
               </div>
 
-              <a href="{{ url_for('remover_item', index=loop.index0) }}" class="remover">
+              <a
+                href="{{ url_for('remover_item', index=loop.index0) }}"
+                class="remover"
+              >
                 Remover item
               </a>
             </div>
@@ -275,7 +148,10 @@
 
           <!-- Botões de Ação -->
           <div class="acoes-carrinho-rodape">
-            <a href="{{ url_for('produtos_pagina') }}" class="btn btn--secundario">
+            <a
+              href="{{ url_for('produtos_pagina') }}"
+              class="btn btn--secundario"
+            >
               ← Continuar Comprando
             </a>
             <a href="{{ url_for('limpar_carrinho') }}" class="btn btn-limpar">
@@ -306,28 +182,52 @@
           <a
             href="{{ url_for('checkout') }}"
             class="finalizar sparkle-btn"
-            style="display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; padding: 12px 20px;"
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 8px;
+              text-decoration: none;
+              padding: 12px 20px;
+            "
           >
             <span>Finalizar Compra</span>
-            <span class="sparkles" style="display: inline-flex; align-items: center;">
-              <svg class="star star-1" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width: 18px; height: 18px;">
-                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+            <span
+              class="sparkles"
+              style="display: inline-flex; align-items: center"
+            >
+              <svg
+                class="star star-1"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+                style="width: 18px; height: 18px"
+              >
+                <path
+                  d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"
+                />
               </svg>
             </span>
           </a>
 
-          <p class="seguranca-texto">🔒 Pagamento 100% Seguro e Encriptado</p>
+          <p class="seguranca-texto">Pagamento 100% Seguro e Encriptado</p>
         </aside>
       </div>
 
       {% else %}
       <div class="vazio">
-        <div style="font-size: 3.5rem; margin-bottom: 12px">🛍️</div>
-        <h1 class="pagina-cadastro__titulo" style="margin-bottom: 8px; font-size: 1.8rem">
+        <div style="font-size: 3.5rem; margin-bottom: 12px"></div>
+        <h1
+          class="pagina-cadastro__titulo"
+          style="margin-bottom: 8px; font-size: 1.8rem"
+        >
           Seu carrinho está vazio
         </h1>
         <p style="color: var(--cinza-texto); margin-bottom: 24px">
-          Você ainda não escolheu suas peças favoritas. Explore nossas tendências e monte seu look!
+          Você ainda não escolheu suas peças favoritas. Explore nossas
+          tendências e monte seu look!
         </p>
 
         <a
@@ -345,5 +245,7 @@
     <footer id="contato">
       <p>&copy; 2026 Lumina. Todos os direitos reservados.</p>
     </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   </body>
 </html>

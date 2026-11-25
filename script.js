@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
   if (gridProdutos) {
     const cards = Array.from(gridProdutos.querySelectorAll(".card"));
     const linksCategorias = document.querySelectorAll(".categoria-item");
-    const btnsTamanho = document.querySelectorAll(".btn-tamanho");
     const selectOrdenar = document.querySelector(".select-ordenar");
 
     // Guardar a ordem inicial dos produtos
@@ -17,30 +16,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Categoria inicial ('todos' exibe toda a loja)
     let categoriaAtual = "todos";
-    
-    // Desativar qualquer filtro de tamanho predefinido para exibir TODOS os produtos no arranque
-    let tamanhoAtual = null;
-    btnsTamanho.forEach((b) => b.classList.remove("ativo"));
 
     // Ler termo de pesquisa da URL (ex: ?q=camiseta)
     const urlParams = new URLSearchParams(window.location.search);
     const termoBusca = (urlParams.get("q") || "").toLowerCase().trim();
-
-    // Compatibilidade entre tamanhos em letras e numéricos (ex: M -> 38, 40)
-    function tamanhoCorresponde(tamanhoProduto, tamanhoFiltro) {
-      if (!tamanhoFiltro) return true;
-      if (tamanhoProduto === "ÚNICO") return true;
-      if (tamanhoProduto === tamanhoFiltro) return true;
-
-      const equivalencias = {
-        PP: ["34", "36"],
-        P: ["36", "38"],
-        M: ["38", "40"],
-        G: ["42", "44"]
-      };
-
-      return equivalencias[tamanhoFiltro] ? equivalencias[tamanhoFiltro].includes(tamanhoProduto) : false;
-    }
 
     function aplicarFiltrosEOrdenacao() {
       // 1. Filtragem dos produtos
@@ -50,16 +29,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const atendeCategoria =
           categoriaAtual === "todos" || categoriasCard.includes(categoriaAtual.toLowerCase());
 
-        // Tamanho
-        const inputTamanho = card.querySelector('input[name="tamanho"]');
-        const tamanhoCard = inputTamanho ? inputTamanho.value.trim().toUpperCase() : "";
-        const atendeTamanho = tamanhoCorresponde(tamanhoCard, tamanhoAtual);
-
         // Termo de Pesquisa
         const tituloProduto = (card.querySelector("h2")?.innerText || "").toLowerCase();
         const atendeBusca = !termoBusca || tituloProduto.includes(termoBusca);
 
-        return atendeCategoria && atendeTamanho && atendeBusca;
+        return atendeCategoria && atendeBusca;
       });
 
       // Exibir/Ocultar elementos no DOM
@@ -94,21 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
         linksCategorias.forEach((l) => l.classList.remove("ativa"));
         this.classList.add("ativa");
         categoriaAtual = this.dataset.filtro || "todos";
-        aplicarFiltrosEOrdenacao();
-      });
-    });
-
-    // Clique nos Tamanhos (permite desmarcar ao clicar no mesmo tamanho)
-    btnsTamanho.forEach((btn) => {
-      btn.addEventListener("click", function () {
-        if (this.classList.contains("ativo")) {
-          this.classList.remove("ativo");
-          tamanhoAtual = null;
-        } else {
-          btnsTamanho.forEach((b) => b.classList.remove("ativo"));
-          this.classList.add("ativo");
-          tamanhoAtual = this.innerText.trim().toUpperCase();
-        }
         aplicarFiltrosEOrdenacao();
       });
     });
@@ -196,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (btnCopyPix) {
       btnCopyPix.disabled = false;
-      btnCopyPix.innerText = "📋 Copiar";
+      btnCopyPix.innerText = " Copiar";
     }
 
     iniciarTimerPix();
@@ -283,9 +242,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 3000);
       }
 
-      btnCopyPix.innerText = "✅ Copiado!";
+      btnCopyPix.innerText = " Copiado!";
       setTimeout(() => {
-        if (tempoRestante > 0) btnCopyPix.innerText = "📋 Copiar";
+        if (tempoRestante > 0) btnCopyPix.innerText = "Copiar";
       }, 2000);
     });
   }

@@ -80,7 +80,7 @@
                 placeholder="Buscar produtos, marcas, tendências..."
                 value="{{ busca if busca else '' }}"
               />
-              <button type="submit" class="search-btn-icon" aria-label="Buscar">🔍</button>
+              <button type="submit" class="search-btn-icon" aria-label="Buscar"></button>
             </div>
           </form>
 
@@ -89,7 +89,7 @@
             <a href="{{ url_for('perfil') }}" class="btn-header-pill"><span>PERFIL</span></a>
             <a href="{{ url_for('consultar_pedidos') }}" class="btn-header-pill"><span>PEDIDOS</span></a>
             <a href="{{ url_for('carrinho') }}" class="btn-cart-circle" title="Carrinho de Compras">
-              🛒 <span class="cart-count-badge">{{ session.get('carrinho', [])|length }}</span>
+               <span class="cart-count-badge">{{ session.get('carrinho', [])|length }}</span>
             </a>
           </div>
         </div>
@@ -128,7 +128,7 @@
 
           <div class="imagem-zoom-container" id="zoomContainer">
             <button type="button" class="btn-ver-perto" onclick="abrirModalZoom()">
-              🔍 Ampliar De Perto
+               Ampliar De Perto
             </button>
             <img
               id="imagemPrincipal"
@@ -178,10 +178,10 @@
               <!-- Botões de Guia de Medidas e Provador -->
               <div class="links-guia">
                 <button type="button" class="btn-guia-medidas" onclick="abrirModalMedidas()">
-                  📏 Tabela de Medidas Detalhada
+                   Tabela de Medidas Detalhada
                 </button>
                 <a href="{{ url_for('provador') }}" class="btn-guia-medidas">
-                  👕 Provador Virtual (Descubra o seu tamanho)
+                   Provador Virtual (Descubra o seu tamanho)
                 </a>
               </div>
             </div>
@@ -197,56 +197,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Seção: Outros Produtos da Coleção -->
-      <section class="produtos-relacionados" style="margin-top: 60px;">
-        <h2 style="text-align: center; margin-bottom: 30px; font-size: 24px;">Outros Produtos da Coleção</h2>
-        
-        <div class="grid">
-          {% if outros_produtos %}
-            {% for prod in outros_produtos %}
-            <article class="card">
-              <a href="{{ url_for('produto_detalhes', id_produto=prod.id_produto) }}" class="card-link">
-                <div class="card-imagem-container">
-                  <img
-                    src="{{ url_for('static', filename=prod.imagem) }}"
-                    alt="{{ prod.nome }}"
-                    class="foto-principal"
-                  />
-                  {% if prod.imagem_costas %}
-                  <img
-                    src="{{ url_for('static', filename=prod.imagem_costas) }}"
-                    alt="{{ prod.nome }} - Costas"
-                    class="foto-hover"
-                  />
-                  {% endif %}
-                </div>
-              </a>
-              <div class="card-content">
-                <h2>{{ prod.nome }}</h2>
-                <p class="preco">R$ {{ "%.2f"|format(prod.preco)|replace('.', ',') }}</p>
-
-                <form action="{{ url_for('adicionar_carrinho') }}" method="POST">
-                  <input type="hidden" name="nome" value="{{ prod.nome }}" />
-                  <input type="hidden" name="preco" value="{{ prod.preco }}" />
-                  <input type="hidden" name="imagem" value="{{ url_for('static', filename=prod.imagem) }}" />
-                  <input type="hidden" name="tamanho" value="M" />
-                  <button type="submit" class="btn btn--primario btn--bloco sparkle-btn" style="margin-top: 10px;">
-                    Adicionar ao Carrinho
-                  </button>
-                </form>
-              </div>
-            </article>
-            {% endfor %}
-          {% endif %}
-        </div>
-
-        <div style="text-align: center; margin-top: 35px;">
-          <a href="{{ url_for('produtos_pagina') }}" class="btn btn--primario sparkle-btn" style="display: inline-block; padding: 12px 28px; text-decoration: none;">
-            Ver Todos os Produtos
-          </a>
-        </div>
-      </section>
     </main>
 
     <!-- Modal da Tabela de Medidas -->
