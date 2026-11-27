@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sobre Nós | Lumina</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+
+  <body>
+    <!-- Barra de Topo Promocional -->
+    <div class="top-banner">
+      <div class="top-banner-container">
+        <div class="banner-item">
+          <svg class="banner-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M19 6h-2c0-2.21-1.79-4-4-4S9 3.79 9 6H7c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6-2c1.1 0 2 .9 2 2h-4c0-1.1.9-2 2-2zm6 14H7V8h2v2c0 .55.45 1 1 1s1-.45 1-1V8h4v2c0 .55.45 1 1 1s1-.45 1-1V8h2v10z"
+            />
+          </svg>
+          <strong>Seja um Parceiro Lumina</strong>
+          <a href="{{ url_for('cadastro') }}" class="banner-link"
+            >Cadastre-se agora</a
+          >
+        </div>
+
+        <span class="banner-divider" aria-hidden="true">|</span>
+
+        <div class="banner-item">
+          <svg class="banner-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"
+            />
+          </svg>
+          <strong>Frete Grátis</strong>
+          <a href="{{ url_for('produtos_pagina') }}" class="banner-link"
+            >Ver coleção</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Cabeçalho e Menu de Categorias -->
+    {% include 'navbar.html' %}
+
+    <!-- Conteúdo Principal -->
+    <main class="container pagina-sobre-main">
+      <!-- Hero Institucional -->
+      <section class="hero sobre-hero">
+        <span class="subtitulo">Nossa História & Essência</span>
+        <h1 class="hero__titulo sobre-titulo-principal">
+          Moda que ilumina a sua autenticidade
+        </h1>
+        <p class="hero__descricao">
+          Nascemos com o propósito de unir conforto, design atemporal e
+          tecnologia para transformar a forma como você se veste todos os dias.
+        </p>
+      </section>
+
+      <!-- Nossa História -->
+      <section class="sobre-historia-grid">
+        <div class="sobre-historia-card">
+          <h2>Quem Somos</h2>
+          <p>
+            A <strong>Lumina</strong> surgiu da vontade de proporcionar aos
+            nossos clientes a facilidade de encontrar sua própria identidade por
+            meio da moda. Em nosso catálogo, reunimos desde roupas infantis até
+            peças adultas — masculinas e femininas — sempre com muita
+            personalidade.
+          </p>
+          <p>
+            Cada peça é pensada para acompanhar o dia a dia. Por isso,
+            desenvolvemos um site com uma interface simples e intuitiva,
+            permitindo que você encontre suas roupas e monte combinações sem
+            perder tempo e sem abrir mão do seu estilo.
+          </p>
+        </div>
+
+        <div class="sobre-destaque-box">
+          <h3>Inovação no Caimento</h3>
+          <p>
+            Acreditamos que comprar roupas online deve ser simples e seguro. Por
+            isso, desenvolvemos o <strong>Provador Virtual Lumina</strong>,
+            ajudando você a encontrar o tamanho ideal antes mesmo da peça chegar
+            à sua casa.
+          </p>
+          <a
+            href="{{ url_for('provador') }}"
+            class="btn btn--primario sparkle-btn"
+            style="margin-top: 14px"
+          >
+            Experimentar Provador Virtual
+          </a>
+        </div>
+      </section>
+
+      <!-- Pilares: Missão, Visão e Valores -->
+      <section class="sobre-pilares-grid" aria-label="Missão, Visão e Valores">
+        <article class="sobre-pilar-card">
+          <div class="sobre-pilar-icone">✦</div>
+          <h3>Missão</h3>
+          <p>
+            Oferecer peças de qualidade e design atemporal que tornem o dia a
+            dia mais prático, elegante e autêntico para cada cliente.
+          </p>
+        </article>
+
+        <article class="sobre-pilar-card">
+          <div class="sobre-pilar-icone">◈</div>
+          <h3>Visão</h3>
+          <p>
+            Ser referência em moda acessível e experiência digital humanizada,
+            conectando estilo, inclusão de medidas e praticidade.
+          </p>
+        </article>
+
+        <article class="sobre-pilar-card">
+          <div class="sobre-pilar-icone">❖</div>
+          <h3>Valores</h3>
+          <p>
+            Transparência, respeito à diversidade de corpos, curadoria
+            responsável e compromisso total com a satisfação de quem veste
+            Lumina.
+          </p>
+        </article>
+      </section>
+
+      <!-- Chamada para Ação -->
+      <section class="sobre-cta">
+        <h2>Pronto para renovar seu estilo?</h2>
+        <p>
+          Explore nossa coleção completa ou fale diretamente com a nossa equipe
+          de atendimento.
+        </p>
+        <div class="sobre-cta-botoes">
+          <a
+            href="{{ url_for('produtos_pagina') }}"
+            class="btn btn--primario sparkle-btn"
+          >
+            Explorar Produtos
+          </a>
+          <a href="{{ url_for('contato') }}" class="btn btn--secundario">
+            Falar Conosco
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Botões Flutuantes -->
+    <div class="floating-buttons">
+      <a
+        href="{{ url_for('inicio') }}"
+        class="btn-floating sparkle-btn"
+        aria-label="Início"
+      >
+        <svg
+          class="action-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Início</span>
+      </a>
+
+      <a
+        href="{{ url_for('contato') }}"
+        class="btn-floating sparkle-btn"
+        aria-label="Contatos"
+      >
+        <svg
+          class="action-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path
+            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+          ></path>
+        </svg>
+        <span>Contatos</span>
+      </a>
+    </div>
+
+    <!-- Rodapé -->
+    <footer id="contato">
+      <p>&copy; 2026 Lumina. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>
